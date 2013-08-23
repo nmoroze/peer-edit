@@ -54,9 +54,10 @@ def createuser(request):
 def feedback(request, feedback_id):
 	feedback = Feedback.objects.all().get(id=feedback_id)
 	paper = feedback.paper
-	author = feedback.author
+	fbAuthor = feedback.author
+	pAuthor = paper.author
 	myAuthor = Author.objects.all().get(user=request.user)
-	if author != myAuthor:
+	if pAuthor != myAuthor:
 		return HttpResponse("Only the author of the paper can select feedback!")
 	else:
 		author.points += paper.points
