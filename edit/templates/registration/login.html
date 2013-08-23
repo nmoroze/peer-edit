@@ -2,7 +2,7 @@
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
-<h1>Please login</h1>
+<h1>Please login to continue</h1>
 <p>or <a href="/signup">create a new user</a>
 <form method="post" action="{% url "django.contrib.auth.views.login" %}">
 {% csrf_token %}

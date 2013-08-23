@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django.shortcuts import render_to_response
 from django.utils import timezone
@@ -48,7 +48,7 @@ def createuser(request):
 		user = User.objects.create_user(request.POST['username'], '', request.POST['pass'])
 		author = Author(user = user, points=5)
 		author.save()
-		return HttpResponse("Success!")
+		return HttpResponseRedirect("/")
 
 @login_required
 def feedback(request, feedback_id):
@@ -64,14 +64,14 @@ def feedback(request, feedback_id):
 		fbAuthor.save()
 		paper.answered = True
 		paper.save()
-		return HttpResponse("Success!")
+		return HttpResponseRedirect("/")
 
 @login_required
 def submitfeedback(request):
 	paper = Paper.objects.all().get(id=request.POST['paper'])
 	feedback = Feedback(content=request.POST['feedback'], author=Author.objects.all().get(user=request.user), paper=paper)
 	feedback.save()
-	return HttpResponse("Success!")
+	return HttpResponseRedirect("/edit/"+str(paper.id))
 
 @login_required
 def submit(request):
@@ -94,4 +94,4 @@ def submitpaper(request):
 	paper = Paper(question = request.POST['question'], points = request.POST['points'], body = request.POST['body'], author=Author.objects.all().get(user=request.user), pub_date = timezone.now())
 	paper.save()
 	print paper.id
-	return HttpResponse("Thanks brah!")
+	return HttpResponseRedirect("/edit/"+str(paper.id))
