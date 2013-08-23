@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Author(models.Model):
     user = models.OneToOneField(User)
-    points = models.IntegerField()
+    points = models.IntegerField(default = 5)
     def __unicode__(self):
 		return self.user.username
 
@@ -14,7 +14,8 @@ class Paper(models.Model):
 	body = models.TextField()
 	pub_date = models.DateTimeField('pub_date')
 	author = models.ForeignKey(Author)
-
+	points = models.IntegerField()
+	answered = models.BooleanField(default = False)
 	def __unicode__(self):
 		return self.question
 

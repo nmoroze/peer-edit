@@ -1,12 +1,14 @@
-<div style="float:right">Logged in as: {{ user.username }} </div>
+{% if user %}
+	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts</div>
+{% endif %}
 <a href="/submit">Submit a paper</a>
 
 {% if latest_paper_list %}
     <ul>
     {% for paper in latest_paper_list %}
-        <li><a href="/edit/{{paper.id}}/">{{ paper.question }}</a></li>
+        <li><a href="/edit/{{paper.id}}/">({{ paper.points }} pts) {{ paper.question }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>No papers to edit! How about you submit one?</p>
 {% endif %}

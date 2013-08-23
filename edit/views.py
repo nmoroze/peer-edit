@@ -5,15 +5,20 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+import sys
+
 from edit.models import *
 
 def index(request):
-	latest_paper_list = Paper.objects.order_by('-pub_date')[:5]
+	latest_paper_list = Paper.objects.filter(answered = False).order_by('-pub_date')[:5]
 	template = loader.get_template('edit/index.html')
 	context = RequestContext(request, {
 		'latest_paper_list': latest_paper_list,
 		'user': request.user,
+		'author': Author.objects.all().get(user=request.user),
 	})
+	print Author.objects.all().get(user=request.user)
+	sys.stdout.flush()
 	return HttpResponse(template.render(context))
 
 def edit(request, paper_id):
@@ -53,13 +58,23 @@ def submitfeedback(request):
 
 @login_required
 def submit(request):
-	return render_to_response('edit/submit.html',{},context_instance=RequestContext(request))
+	template = loader.get_template('edit/submit.html')
+	context = RequestContext(request, {
+		'author': Author.objects.all().get(user=request.user)
+	})
+
+	return HttpResponse(template.render(context))
 
 @login_required
 def submitpaper(request):
 	print request.POST['question']
 	print request.POST['body']
-	paper = Paper(question = request.POST['question'], body = request.POST['body'], author=Author.objects.all().get(user=request.user), pub_date = timezone.now())
+	author = Author.objects.all().get(user = request.user)
+	author.points -= int(request.POST['points'])
+	print author.points
+	sys.stdout.flush()
+	author.save()
+	paper = Paper(question = request.POST['question'], points = request.POST['points'], body = request.POST['body'], author=Author.objects.all().get(user=request.user), pub_date = timezone.now())
 	paper.save()
 	print paper.id
 	return HttpResponse("Thanks brah!")
