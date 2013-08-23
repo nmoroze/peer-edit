@@ -50,6 +50,21 @@ def createuser(request):
 		return HttpResponse("Success!")
 
 @login_required
+def feedback(request, feedback_id):
+	feedback = Feedback.objects.all().get(id=feedback_id)
+	paper = feedback.paper
+	author = feedback.author
+	myAuthor = Author.objects.all().get(user=request.user)
+	if author != myAuthor:
+		return HttpResponse("Only the author of the paper can select feedback!")
+	else:
+		author.points += paper.points
+		author.save()
+		paper.answered = True
+		paper.save()
+		return HttpResponse("Success!")
+
+@login_required
 def submitfeedback(request):
 	paper = Paper.objects.all().get(id=request.POST['paper'])
 	feedback = Feedback(content=request.POST['feedback'], author=Author.objects.all().get(user=request.user), paper=paper)

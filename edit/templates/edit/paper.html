@@ -10,5 +10,5 @@
 <input type="submit" value="Submit">
 </form>
 {% for feedback in feedback_list %}
-	<p> {{ feedback.content }} </p>
+	<p> {{ feedback.content }} <a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a></p>
 {% endfor %}

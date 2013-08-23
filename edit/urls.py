@@ -6,6 +6,7 @@ from edit import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     url(r'^edit/(?P<paper_id>\d+)/$', views.edit, name='edit'),
+    url(r'^bestfeedback/(?P<feedback_id>\d+)/$', views.feedback, name='bestfeedback'),
     url(r'^submit/$', views.submit, name='submit'),
     url(r'^signup/$', views.signup, name='signup'),
     url(r'^submitfeedback/$', views.submitfeedback, name='feedback'),
