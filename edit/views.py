@@ -60,8 +60,8 @@ def feedback(request, feedback_id):
 	if pAuthor != myAuthor:
 		return HttpResponse("Only the author of the paper can select feedback!")
 	else:
-		author.points += paper.points
-		author.save()
+		fAuthor.points += paper.points
+		fAuthor.save()
 		paper.answered = True
 		paper.save()
 		return HttpResponse("Success!")
