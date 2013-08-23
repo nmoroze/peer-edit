@@ -1,0 +1,14 @@
+<h1> {{ paper.question }} </h1>
+
+<p id="paper-body"> {{ paper.body }} </p>
+
+<p> <strong>Feedback:</strong> </p>
+<form method="post" action="/submitfeedback/">
+{% csrf_token %}
+<input type="text" name="feedback">
+<input type="hidden" name="paper" value={{ paper.id }}>
+<input type="submit" value="Submit">
+</form>
+{% for feedback in feedback_list %}
+	<p> {{ feedback.content }} </p>
+{% endfor %}

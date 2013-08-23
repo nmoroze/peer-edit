@@ -1,0 +1,10 @@
+<form action="/submitpaper/" method="post">
+{% csrf_token %}
+Question <br>
+<input style="width:100%" type="text" name="question"><br>
+Content <br>
+<textarea style="width:100%" rows="50"  name="body">
+</textarea>
+<br>
+<input type="submit" value="Submit">
+</form>
