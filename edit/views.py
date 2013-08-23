@@ -44,6 +44,7 @@ def createuser(request):
 		author.save()
 		return HttpResponse("Success!")
 
+@login_required
 def submitfeedback(request):
 	paper = Paper.objects.all().get(id=request.POST['paper'])
 	feedback = Feedback(content=request.POST['feedback'], author=Author.objects.all().get(user=request.user), paper=paper)
