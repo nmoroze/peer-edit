@@ -9,6 +9,7 @@ import sys
 
 from edit.models import *
 
+@login_required
 def index(request):
 	latest_paper_list = Paper.objects.filter(answered = False).order_by('-pub_date')[:5]
 	template = loader.get_template('edit/index.html')
