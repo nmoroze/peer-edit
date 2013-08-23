@@ -9,6 +9,8 @@
 <input type="hidden" name="paper" value={{ paper.id }}>
 <input type="submit" value="Submit">
 </form>
+<ul>
 {% for feedback in feedback_list %}
-	<p> {{ feedback.content }} <a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a></p>
+	<li> {{ feedback.content }} <a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a><br> - {{ feedback.author.user.username }} </li>
 {% endfor %}
+</ul>
