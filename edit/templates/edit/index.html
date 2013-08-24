@@ -1,5 +1,5 @@
 {% if user %}
-	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts</div>
+	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a></div>
 {% endif %}
 <a href="/submit">Submit a paper</a>
 

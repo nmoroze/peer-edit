@@ -4,6 +4,8 @@ from django.shortcuts import render_to_response
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
+
 
 import sys
 
@@ -21,6 +23,10 @@ def index(request):
 	print Author.objects.all().get(user=request.user)
 	sys.stdout.flush()
 	return HttpResponse(template.render(context))
+
+def signout(request):
+	logout(request)
+	return HttpResponseRedirect("/")
 
 def edit(request, paper_id):
 	print paper_id
