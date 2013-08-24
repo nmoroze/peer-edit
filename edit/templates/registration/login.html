@@ -1,23 +1,116 @@
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Peer review site!">
+	<title>Revisely!</title>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
+	<link href="../static/styles/base.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<!-- {% if form.errors %} -->
+	<!-- <p>Your username and password didn't match. Please try again.</p> -->
+	<!-- {% endif %} -->
 
-<h1>Please login to continue</h1>
-<p>or <a href="/signup">create a new user</a>
-<form method="post" action="{% url "django.contrib.auth.views.login" %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+	<div class="container">
+		<div class="jumbotron">
+			<header>
+				<h1 id="logo">Revisely</h1>
+				<h2 class="light">Peer editing for the web:</h2>
+			</header>
+			<a data-toggle="modal" href="#signup" class="btn btn-success btn-huge"><i class="icon-caret-right"></i>&nbsp Get started</a>
+			<br>
+			<h5 class="light"> Got an account? <a data-toggle="modal" href="#login">Log in.</a></h5>
+		</div>
 
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="signup" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Sign Up</h4>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="/createuser/" id="signup">
+						<!-- {% csrf_token %} -->
+						Username:
+						<br>
+						<input type="text" name="username"><br>
+						Password:
+						<br>
+						<input type="password" name="pass"><br>
+						Confirm Password:
+						<br>
+						<input type="password" name="confirm"><br>
+						<br>	
+						<iframe src="http://crapcha.com/embed/" frameborder="0" scrolling="0" width="300" height="150"></iframe>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" form="signup" class="btn btn-success btn-lg">Sign up</button>
+				</div>
+			</div>
+		</div>		
+	</div><!-- /.modal -->
+
+	<div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Login</h4>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="{% url "django.contrib.auth.views.login" %}" id="login">
+						<!-- <form method="post" action="{% url "django.contrib.auth.views.login" %}"> -->
+						<!-- {% csrf_token %} -->
+						Username:
+						<br>
+						<input type="username" name="username"><br>
+						<!-- {{ form.username.label_tag }} -->
+						<!-- {{ form.username }} -->
+						Password:
+						<br>
+						<input type="password" name="pass"><br>
+						<!-- {{ form.password.label_tag }} -->
+						<!-- {{ form.password }} -->
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" form="login" class="btn btn-success btn-lg">Log in</button>
+					<!-- <input type="hidden" name="next" value="{{ next }}" /> -->
+				</div>
+			</div>
+		</div>		
+	</div>
+
 </form>
+<div class="container">
+<div class="row">
+        <div class="col-lg-4">
+          <h2>Heading</h2>
+          <p class="light">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+          <h2>Heading</h2>
+          <p class="light">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+       </div>
+        <div class="col-lg-4">
+          <h2>Heading</h2>
+          <p class="light">Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+          <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+        </div>
+      </div>
+  </div>
+<script src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
+</body>
+</html>
