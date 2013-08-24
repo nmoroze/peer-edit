@@ -8,7 +8,7 @@
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
-	<link href="../static/styles/base.css" rel="stylesheet" type="text/css">
+	<link href="/static/css/base.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<!-- {% if form.errors %} -->
@@ -35,25 +35,25 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title">Sign Up</h4>
 				</div>
-				<div class="modal-body">
-					<form method="post" action="/createuser/" id="signup">
-						<!-- {% csrf_token %} -->
-						Username:
-						<br>
-						<input type="text" name="username"><br>
-						Password:
-						<br>
-						<input type="password" name="pass"><br>
-						Confirm Password:
-						<br>
-						<input type="password" name="confirm"><br>
-						<br>	
-						<iframe src="http://crapcha.com/embed/" frameborder="0" scrolling="0" width="300" height="150"></iframe>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" form="signup" class="btn btn-success btn-lg">Sign up</button>
-				</div>
+				<form method="post" action="/createuser/" id="signup">
+					<div class="modal-body">
+							{% csrf_token %} 
+							Username:
+							<br>
+							<input type="text" name="username"><br>
+							Password:
+							<br>
+							<input type="password" name="pass"><br>
+							Confirm Password:
+							<br>
+							<input type="password" name="confirm"><br>
+							<br>	
+							<!--<iframe src="http://crapcha.com/embed/" frameborder="0" scrolling="0" width="300" height="150"></iframe>-->
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success btn-lg">Sign up</button>
+					</div>
+				</form>
 			</div>
 		</div>		
 	</div><!-- /.modal -->
@@ -65,26 +65,21 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title">Login</h4>
 				</div>
-				<div class="modal-body">
-					<form method="post" action="{% url "django.contrib.auth.views.login" %}" id="login">
-						<!-- <form method="post" action="{% url "django.contrib.auth.views.login" %}"> -->
-						<!-- {% csrf_token %} -->
-						Username:
-						<br>
-						<input type="username" name="username"><br>
-						<!-- {{ form.username.label_tag }} -->
-						<!-- {{ form.username }} -->
-						Password:
-						<br>
-						<input type="password" name="pass"><br>
-						<!-- {{ form.password.label_tag }} -->
-						<!-- {{ form.password }} -->
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" form="login" class="btn btn-success btn-lg">Log in</button>
-					<!-- <input type="hidden" name="next" value="{{ next }}" /> -->
-				</div>
+				<form method="post" action="{% url "django.contrib.auth.views.login" %}" id="login">
+					<div class="modal-body">
+							{% csrf_token %}
+							<br>
+							{{ form.username.label_tag }} 
+							{{ form.username }} 
+							<br>
+							{{ form.password.label_tag }} 
+							{{ form.password }}
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success btn-lg">Log in</button>
+						<input type="hidden" name="next" value="{{ next }}" />
+					</div>
+				</form>
 			</div>
 		</div>		
 	</div>

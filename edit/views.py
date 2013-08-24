@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, logout, login
 
 
 import sys
@@ -41,8 +41,8 @@ def edit(request, paper_id):
 
 	return HttpResponse(template.render(context))
 
-def login(request):
-	return render_to_response('edit/login.html',{},context_instance=RequestContext(request))
+# def signin(request):
+# 	return render_to_response('edit/login.html',{},context_instance=RequestContext(request))
 
 def signup(request):
 	return render_to_response('edit/signup.html',{},context_instance=RequestContext(request))
@@ -54,6 +54,8 @@ def createuser(request):
 		user = User.objects.create_user(request.POST['username'], '', request.POST['pass'])
 		author = Author(user = user, points=5)
 		author.save()
+		user = authenticate(username=request.POST['username'], password=request.POST['pass'])
+		login(request, user)
 		return HttpResponseRedirect("/")
 
 @login_required
