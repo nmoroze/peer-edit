@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^createuser/$', views.createuser, name='createuser'),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^submitpaper/$', views.submitpaper, name='submitpaper'),
+    url(r'^accounts/profile/$', views.index, name='indexfromfailedlogin'),
 )
