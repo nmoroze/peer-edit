@@ -14,6 +14,10 @@ a {
 	color: #4EA3E5;
 }
 
+a.paper:hover {
+	text-decoration: none;
+}
+
 input {
 	width: 99%;
 }

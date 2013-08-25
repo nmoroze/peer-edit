@@ -9,7 +9,7 @@
 {% if latest_paper_list %}
     <ul>
     {% for paper in latest_paper_list %}
-        <li><a class="btn" href="/edit/{{paper.id}}/"><span class="label-primary">{{ paper.points }} pts</span> {{ paper.question }}</a></li>
+        <li><a class="paper" href="/edit/{{paper.id}}/"><span class="label-primary">{{ paper.points }} pts</span> {{ paper.question }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
