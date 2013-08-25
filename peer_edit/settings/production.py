@@ -5,20 +5,9 @@ Production and global settings.
 import os
 
 from . import base
-from urlparse import urlparse
+import dj_database_url
 
-_db_url = urlparse(os.environ.get('DATABASE_URL', ''))
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': _db_url.path[1:],
-        'USER': _db_url.username,
-        'PASSWORD': _db_url.password,
-        'HOST': _db_url.hostname,
-        'PORT': _db_url.port,
-    },
-}
+DATABASES = {'default': dj_database_url.parse(base.get_env_setting('DATABASE_URL'))}
 
 CACHES = {
     'default': {
