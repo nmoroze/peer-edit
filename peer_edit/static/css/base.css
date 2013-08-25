@@ -34,6 +34,10 @@ input {
 	text-align: left;
 }
 
+.btn {
+	border: 0;
+}
+
 input.btn {
 	border: 0;
 	background-color: orange;
