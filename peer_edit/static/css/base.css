@@ -34,10 +34,10 @@ input {
 	text-align: left;
 }
 
-.btn {
+input.btn {
 	border: 0;
 	background-color: orange;
-	color: black;
+	color: white;
 	width: 10%;
 	margin-top: 2px;
 }
