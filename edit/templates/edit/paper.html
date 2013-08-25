@@ -8,7 +8,7 @@
 <p> <strong>Feedback:</strong> </p>
 <form method="post" action="/submitfeedback/">
 {% csrf_token %}
-<input type="text" name="feedback">
+<input type="text" name="feedback" required="required">
 <input type="hidden" name="paper" value={{ paper.id }}>
 <input type="submit" class="btn" value="Submit">
 </form>

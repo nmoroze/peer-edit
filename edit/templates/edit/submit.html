@@ -4,13 +4,13 @@
 <form action="/submitpaper/" method="post">
 {% csrf_token %}
 Question <br>
-<input style="width:100%" type="text" name="question"><br>
+<input style="width:100%" type="text" name="question" required="required"><br>
 Content <br>
-<textarea style="width:100%" rows="50"  name="body">
+<textarea style="width:100%" rows="50"  name="body" required="required">
 </textarea>
 <br>
 Points <br>
-<input type="number" name="points" min="1" max={{ author.points }}>
+<input type="number" name="points" min="1" max={{ author.points }} required="required">
 <input type="submit" class="btn" value="Submit">
 </form>
 {% endblock %}
