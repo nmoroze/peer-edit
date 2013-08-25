@@ -1,3 +1,6 @@
+{% extends "edit/base.html" %}
+
+{% block content %}
 <h1> {{ paper.question }} </h1>
 
 <p id="paper-body"> {{ paper.body }} </p>
@@ -14,3 +17,4 @@
 	<li> {{ feedback.content }} <a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a><br> - {{ feedback.author.user.username }} </li>
 {% endfor %}
 </ul>
+{% endblock %}

@@ -1,3 +1,6 @@
+{% extends "edit/base.html" %}
+
+{% block content %}
 {% if user %}
 	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a></div>
 {% endif %}
@@ -12,3 +15,5 @@
 {% else %}
     <p>No papers to edit! How about you submit one?</p>
 {% endif %}
+ 
+ {% endblock %}

@@ -1,3 +1,6 @@
+{% extends "edit/base.html" %}
+
+{% block content %}
 <form action="/submitpaper/" method="post">
 {% csrf_token %}
 Question <br>
@@ -10,3 +13,4 @@ Points <br>
 <input type="number" name="points" min="1" max={{ author.points }}>
 <input type="submit" value="Submit">
 </form>
+{% endblock %}
