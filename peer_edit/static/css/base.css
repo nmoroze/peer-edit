@@ -36,6 +36,10 @@ input {
 
 .btn {
 	border: 0;
+	background-color: orange;
+	color: black;
+	width: 10%;
+	margin-top: 2px;
 }
 
 .btn-success {
