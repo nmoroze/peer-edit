@@ -9,24 +9,27 @@
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
 	<link href="/static/css/base.css" rel="stylesheet" type="text/css">
+	<link href="/static/css/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<!-- {% if form.errors %} -->
 	<!-- <p>Your username and password didn't match. Please try again.</p> -->
 	<!-- {% endif %} -->
 
-	<div class="container">
-		<div class="jumbotron">
-			<header>
-				<h1 id="logo">Revisely</h1>
-				<h2 class="light">Peer editing for the web:</h2>
-			</header>
-			<a data-toggle="modal" href="#signup" class="btn btn-success btn-huge"><i class="icon-caret-right"></i>&nbsp Get started</a>
-			<br>
-			<h5 class="light"> Got an account? <a data-toggle="modal" href="#login">Log in.</a></h5>
+	<header>
+		<div class="container">
+			<div class="jumbotron">
+				<div>
+					<h1 id="logo">Revisely</h1>
+					<h2 class="light">Peer editing for the web</h2>
+				</div>
+				<a data-toggle="modal" href="#signup" class="btn btn-success btn-huge"><i class="icon-caret-right"></i>&nbsp Get started</a>
+				<br>
+				<p class="light"> Got an account? <a data-toggle="modal" href="#login">Log in.</a></p>
+			</div>
+			<img src="http://placehold.it/600x400&text=screenshot">
 		</div>
-
-	</div>
+	</header>
 	<!-- Modal -->
 	<div class="modal fade" id="signup" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
@@ -86,7 +89,7 @@
 
 </form>
 <div class="container">
-<div class="row">
+	<div class="row">
         <div class="col-lg-4">
           <h2>Heading</h2>
           <p class="light">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
@@ -103,7 +106,7 @@
           <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
         </div>
       </div>
-  </div>
+</div>
 <script src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script> 
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
