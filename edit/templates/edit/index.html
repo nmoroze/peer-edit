@@ -2,7 +2,17 @@
 
 {% block content %}
 {% if user %}
-	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a></div>
+	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a><br>
+	{% if notification_list %}
+		<ul>
+		{% for notification in notification_list %}
+			<li>{{ notification.content }}</li>
+		</ul>
+		{% endfor %}
+	{% else %}
+		No notifications!
+	{% endif %}
+	</div>
 {% endif %}
 <a class="btn btn-large btn-success" style="margin-top: 5px" href="/submit"><i class="icon-fixed-width icon-pencil"></i>Submit</a>
 

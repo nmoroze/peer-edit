@@ -24,3 +24,6 @@ class Feedback(models.Model):
 	author = models.ForeignKey(Author)
 	paper = models.ForeignKey(Paper)
 
+class Notification(models.Model):
+	content = models.TextField()
+	author = models.ForeignKey(Author)

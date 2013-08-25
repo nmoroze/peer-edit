@@ -15,13 +15,15 @@ from edit.models import *
 def index(request):
 	latest_paper_list = Paper.objects.filter(answered = False).order_by('-pub_date')[:5]
 	template = loader.get_template('edit/index.html')
+	author = Author.objects.all().get(user=request.user)
+	notifications = Notification.objects.filter(author=author)
+
 	context = RequestContext(request, {
 		'latest_paper_list': latest_paper_list,
+		'notification_list': notifications,
 		'user': request.user,
-		'author': Author.objects.all().get(user=request.user),
+		'author': author,
 	})
-	print Author.objects.all().get(user=request.user)
-	sys.stdout.flush()
 	return HttpResponse(template.render(context))
 
 def signout(request):
@@ -68,6 +70,8 @@ def feedback(request, feedback_id):
 	if pAuthor != myAuthor:
 		return HttpResponse("Only the author of the paper can select feedback!")
 	else:
+		notice = Notification(content="Your feedback for "+paper.question+" was chosen as the best!", author=fbAuthor)
+		notice.save()
 		fbAuthor.points += paper.points
 		fbAuthor.save()
 		paper.answered = True
@@ -77,8 +81,11 @@ def feedback(request, feedback_id):
 @login_required
 def submitfeedback(request):
 	paper = Paper.objects.all().get(id=request.POST['paper'])
+	author = Author.objects.all().get(user=request.user)
 	feedback = Feedback(content=request.POST['feedback'], author=Author.objects.all().get(user=request.user), paper=paper)
 	feedback.save()
+	notification = Notification(content=author.User.username+" submitted feedback on "+paper.question, author=paper.author)
+	notification.save()
 	return HttpResponseRedirect("/edit/"+str(paper.id))
 
 @login_required
