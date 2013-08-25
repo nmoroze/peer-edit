@@ -4,12 +4,12 @@
 {% if user %}
 	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a></div>
 {% endif %}
-<a href="/submit">Submit a paper</a>
+<a class="btn btn-large btn-success" style="margin-top: 5px" href="/submit"><i class="icon-fixed-width icon-pencil"></i>Submit</a>
 
 {% if latest_paper_list %}
     <ul>
     {% for paper in latest_paper_list %}
-        <li><a href="/edit/{{paper.id}}/">({{ paper.points }} pts) {{ paper.question }}</a></li>
+        <li><a class="btn" href="/edit/{{paper.id}}/"><span class="label-primary">{{ paper.points }} pts</span> {{ paper.question }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

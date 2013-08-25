@@ -38,6 +38,12 @@ input {
 	border: 0;
 }
 
+.label-primary {
+	background-color: lightgray;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
 input.btn {
 	border: 0;
 	background-color: orange;
