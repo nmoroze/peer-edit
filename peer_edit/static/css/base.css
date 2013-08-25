@@ -79,3 +79,10 @@ input {
 	}
 }
 
+/*noah's additions*/
+li {
+	list-style-type: none;
+	border-bottom: 2px solid black;
+}
+
+
