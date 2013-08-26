@@ -24,6 +24,10 @@ def index(request):
 		'user': request.user,
 		'author': author,
 	})
+
+	for n in notifications:
+		n.delete()
+		
 	return HttpResponse(template.render(context))
 
 def signout(request):
