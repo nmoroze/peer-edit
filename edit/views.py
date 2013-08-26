@@ -60,6 +60,9 @@ def createuser(request):
 	if request.POST['pass'] != request.POST['confirm']:
 		return HttpResponse("Your passwords don't match, go back and try again")
 	else:
+		if User.objects.filter(username = request.POST['username']).count()>0:
+			return HttpResponse("Your username is not unique! Try another one")
+
 		user = User.objects.create_user(request.POST['username'], '', request.POST['pass'])
 		author = Author(user = user, points=5)
 		author.save()
