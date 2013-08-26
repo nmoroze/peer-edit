@@ -4,7 +4,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#paper-body').annotator()
-			.annotator('setupPlugins', {tokenUrl: 'http://www.revisely.com/api/token'});
+			.annotator('addPlugin', 'Auth', {tokenUrl: 'http://www.revisely.com/api/token'})
+			.annotator('addPlugin', 'Store', {prefix: 'http://www.annotator.org/api'});
 	});
 </script>
 {% endblock %}
