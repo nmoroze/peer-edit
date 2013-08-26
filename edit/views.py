@@ -70,7 +70,7 @@ def feedback(request, feedback_id):
 	if pAuthor != myAuthor:
 		return HttpResponse("Only the author of the paper can select feedback!")
 	else:
-		notice = Notification(content="Your feedback for "+paper.question+" was chosen as the best!", author=fbAuthor)
+		notice = Notification(content="Your feedback for '"+paper.question+"' was chosen as the best!", author=fbAuthor)
 		notice.save()
 		fbAuthor.points += paper.points
 		fbAuthor.save()
@@ -84,7 +84,7 @@ def submitfeedback(request):
 	author = Author.objects.all().get(user=request.user)
 	feedback = Feedback(content=request.POST['feedback'], author=Author.objects.all().get(user=request.user), paper=paper)
 	feedback.save()
-	notification = Notification(content=author.User.username+" submitted feedback on "+paper.question, author=paper.author)
+	notification = Notification(content=author.user.username+" submitted feedback on "+paper.question, author=paper.author)
 	notification.save()
 	return HttpResponseRedirect("/edit/"+str(paper.id))
 
