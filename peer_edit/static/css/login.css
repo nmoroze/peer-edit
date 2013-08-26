@@ -25,7 +25,7 @@ header .container {
 
 .jumbotron div {
 	text-align: left;
-	text-shadow: 2px 1px 0 white;
+	/*text-shadow: 2px 1px 0 white;*/
 }
 
 #logo {
