@@ -5,7 +5,7 @@
 
 {% endif %}
 <div class="row">
-	<div class="col-md-10">
+	<div class="col-md-8">
 		<a class="btn btn-large btn-success" style="margin-top: 5px" href="/submit"><i class="icon-fixed-width icon-pencil"></i>Submit</a>
 
 		{% if latest_paper_list %}
@@ -19,14 +19,14 @@
 		{% endif %}
 	</div>
 	 
-	<div class="col-md-2"> 
+	<div class="col-md-4" style="width: wrap-content"> 
 		Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a><br>
 		{% if notification_list %}
 			<ul>
 			{% for notification in notification_list %}
 				<li>{{ notification.content }}</li>
-			</ul>
 			{% endfor %}
+			</ul>
 		{% else %}
 			No notifications!
 		{% endif %}

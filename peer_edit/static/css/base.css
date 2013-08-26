@@ -91,7 +91,11 @@ input.btn {
 	}
 }
 
-/*noah's additions*/
+ul {
+	list-style-type: none;
+	padding: 0px;
+}
+
 li {
 	list-style-type: none;
 	border-bottom: 2px solid black;
