@@ -2,28 +2,34 @@
 
 {% block content %}
 {% if user %}
-	<div style="float:right"> Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a><br>
-	{% if notification_list %}
-		<ul>
-		{% for notification in notification_list %}
-			<li>{{ notification.content }}</li>
-		</ul>
-		{% endfor %}
-	{% else %}
-		No notifications!
-	{% endif %}
-	</div>
-{% endif %}
-<a class="btn btn-large btn-success" style="margin-top: 5px" href="/submit"><i class="icon-fixed-width icon-pencil"></i>Submit</a>
 
-{% if latest_paper_list %}
-    <ul>
-    {% for paper in latest_paper_list %}
-        <li><a class="paper" href="/edit/{{paper.id}}/"><span class="label-primary">{{ paper.points }} pts</span> {{ paper.question }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No papers to edit! How about you submit one?</p>
 {% endif %}
- 
+<div class="row">
+	<div class="col-md-10">
+		<a class="btn btn-large btn-success" style="margin-top: 5px" href="/submit"><i class="icon-fixed-width icon-pencil"></i>Submit</a>
+
+		{% if latest_paper_list %}
+		    <ul>
+		    {% for paper in latest_paper_list %}
+		        <li><a class="paper" href="/edit/{{paper.id}}/"><span class="label-primary">{{ paper.points }} pts</span> {{ paper.question }}</a></li>
+		    {% endfor %}
+		    </ul>
+		{% else %}
+		    <p>No papers to edit! How about you submit one?</p>
+		{% endif %}
+	</div>
+	 
+	<div class="col-md-2"> 
+		Logged in as: {{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a><br>
+		{% if notification_list %}
+			<ul>
+			{% for notification in notification_list %}
+				<li>{{ notification.content }}</li>
+			</ul>
+			{% endfor %}
+		{% else %}
+			No notifications!
+		{% endif %}
+	</div>
+</div>
  {% endblock %}
