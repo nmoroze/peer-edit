@@ -40,6 +40,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
+    # Key generator
+    'jwt',
+
     # Database migrations
     'south',
 
@@ -174,6 +177,13 @@ ALLOWED_HOSTS = ['*']
 # This is good to use in production, and on services that support it such as Heroku.
 assert 'DJANGO_SECRET_KEY' in os.environ, 'Set DJANGO_SECRET_KEY'
 SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY')
+
+assert 'ANNOTATE_KEY' in os.environ, 'Set DJANGO_SECRET_KEY'
+ANNOTATE_KEY = get_env_setting('ANNOTATE_KEY')
+
+assert 'ANNOTATE_SECRET' in os.environ, 'Set DJANGO_SECRET_KEY'
+ANNOTATE_SECRET = get_env_setting('ANNOTATE_SECRET')
+
 
 # Uncomment these to activate and customize Celery:
 # CELERY_ALWAYS_EAGER = False  # required to activate celeryd

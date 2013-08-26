@@ -1,5 +1,14 @@
 {% extends "edit/base.html" %}
 
+{% block customscripts %}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#paper-body').annotator()
+			.annotator('setupPlugins', {tokenUrl: 'http://localhost:5000/api/token'});
+	});
+</script>
+{% endblock %}
+
 {% block content %}
 <h1> {{ paper.question }} </h1>
 
@@ -20,4 +29,6 @@
 	<li> {{ feedback.content }} {% if ownPaper %}<a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a>{% endif %}<br> - {{ feedback.author.user.username }} </li>
 {% endfor %}
 </ul>
+
 {% endblock %}
+

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib.auth.views import login
 
-from edit import views
+from edit import views, utils
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
@@ -15,4 +15,6 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^submitpaper/$', views.submitpaper, name='submitpaper'),
     url(r'^accounts/profile/$', views.index, name='indexfromfailedlogin'),
+    # magic token api for annotation
+    url(r'^api/token/$', utils.generate_token, name='token'),
 )
