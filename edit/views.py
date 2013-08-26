@@ -43,6 +43,7 @@ def edit(request, paper_id):
 
 	ownPaper = Author.objects.all().get(user=request.user) == paper.author
 	context = RequestContext(request, {
+		'username': request.user.username,
 		'paper': paper,
 		'feedback_list': feedback_list,
 		'ownPaper': ownPaper

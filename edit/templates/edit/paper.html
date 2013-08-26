@@ -5,8 +5,16 @@
 	$(document).ready(function() {
 		$('#paper-body').annotator()
 			.annotator('addPlugin', 'Auth', {tokenUrl: 'http://www.revisely.com/api/token/'})
-			.annotator('addPlugin', 'Store', {prefix: 'http://annotateit.org/api'});
-	});
+			.annotator('addPlugin', 'Store', {prefix: 'http://annotateit.org/api'})
+			.annotator('addPlugin', 'Permissions', {
+			  user: '{{ username }}',
+			  permissions: {
+			    'read':   [],
+			    'update': ['{{ username }}'],
+			    'delete': ['{{ username }}'],
+			    'admin':  ['{{ username }}']
+			  }});
+		});
 </script>
 {% endblock %}
 
