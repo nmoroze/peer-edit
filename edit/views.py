@@ -42,8 +42,10 @@ def edit(request, paper_id):
 	template = loader.get_template('edit/paper.html')
 
 	ownPaper = Author.objects.all().get(user=request.user) == paper.author
+	author = Author.objects.get(user=request.user)
 	context = RequestContext(request, {
 		'username': request.user.username,
+		'author': author,
 		'paper': paper,
 		'feedback_list': feedback_list,
 		'ownPaper': ownPaper

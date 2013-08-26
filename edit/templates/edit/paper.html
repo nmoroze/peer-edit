@@ -1,38 +1,79 @@
 {% extends "edit/base.html" %}
 
 {% block customscripts %}
+<script src="/static/js/bootbox.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#paper-body').annotator()
-			.annotator('addPlugin', 'Auth', {tokenUrl: 'http://www.revisely.com/api/token/{{ paper.id }}'})
-			.annotator('addPlugin', 'Store', {prefix: 'http://annotateit.org/api'})
-			.annotator('addPlugin', 'Permissions', {
-			  user: '{{ username }}',
-			  permissions: {
-			    'read':   [],
-			    'update': ['{{ username }}'],
-			    'delete': ['{{ username }}'],
-			    'admin':  ['{{ username }}']
-			  }});
+		var feedbackAdded = {{ feedback_list|length }} + 1;
+		$.ajaxSetup({ 
+		     beforeSend: function(xhr, settings) {
+		         function getCookie(name) {
+		             var cookieValue = null;
+		             if (document.cookie && document.cookie != '') {
+		                 var cookies = document.cookie.split(';');
+		                 for (var i = 0; i < cookies.length; i++) {
+		                     var cookie = jQuery.trim(cookies[i]);
+		                     // Does this cookie string begin with the name we want?
+		                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                     break;
+		                 }
+		             }
+		         }
+		         return cookieValue;
+		         }
+		         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+		             // Only send the token to relative URLs i.e. locally.
+		             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		         }
+		     } 
 		});
+		$("#paper-body").on("mouseup", function(e){
+			highlight();
+			bootbox.prompt("Feedback:", function(result) {
+				$.post("/api/save/{{ paper.id }}/", { data: $("#paper-body").html(),
+													  content: result,
+													  author: {{author.id}} });
+			});
+		});
+
+		function highlight() {
+		    var selection = window.getSelection().getRangeAt(0);
+		    var selectedText = selection.extractContents();
+		    var span = $("<span class='highlight'>" + selectedText.textContent + "</span>");
+		    var note = $("<sup>"+feedbackAdded+"</sup>");
+		    feedbackAdded++;
+		    selection.insertNode(span[0]);
+		    selection.collapse(false);
+		    selection.insertNode(note[0]);
+		   
+		    if (selectedText.childNodes[1] != undefined){
+		        console.log(selectedText.childNodes[1]);
+		        $(selectedText.childNodes[1]).remove();
+		    }
+		    
+		    var txt = $('#paper-body').html();
+
+		    $('#paper-body').html(txt.replace(/<\/span>(?:\s)*<span class="highlight">/g, ''));
+		     clearSelection();
+		}	
+
+		function clearSelection() {
+		    if ( document.selection ) {
+		        document.selection.empty();
+		    } else if ( window.getSelection ) {
+		        window.getSelection().removeAllRanges();
+		    }
+		}
+	});
 </script>
 {% endblock %}
 
 {% block content %}
 <h1> {{ paper.question }} </h1>
 
-<p id="paper-body"> {{ paper.body }} </p>
+<p id="paper-body"> {{ paper.body|safe }} </p>
 
-{% if ownPaper %}
-{% else %}
-<p> <strong>Feedback:</strong> </p>
-<form method="post" action="/submitfeedback/">
-{% csrf_token %}
-<input type="text" name="feedback" required="required">
-<input type="hidden" name="paper" value={{ paper.id }}>
-<input type="submit" class="btn" value="Submit">
-</form>
-{% endif %}
 <ul>
 {% for feedback in feedback_list %}
 	<li> {{ feedback.content }} {% if ownPaper %}<a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a>{% endif %}<br> - {{ feedback.author.user.username }} </li>

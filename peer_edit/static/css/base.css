@@ -78,6 +78,10 @@ input.btn {
 	background-color: #3EB200;
 }
 
+.highlight{
+    background-color:#F3F781;
+}
+
 @media (min-width: 768px) {
 	.container {
 		max-width: 80%;
