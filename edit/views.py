@@ -27,7 +27,7 @@ def index(request):
 
 	for n in notifications:
 		n.delete()
-		
+
 	return HttpResponse(template.render(context))
 
 def signout(request):
@@ -40,9 +40,12 @@ def edit(request, paper_id):
 	feedback_list = Feedback.objects.filter(paper=paper)
 	print feedback_list
 	template = loader.get_template('edit/paper.html')
+
+	ownPaper = Author.objects.all().get(user=request.user) == paper.author
 	context = RequestContext(request, {
 		'paper': paper,
 		'feedback_list': feedback_list,
+		'ownPaper': ownPaper
 	})
 
 	return HttpResponse(template.render(context))
