@@ -16,5 +16,5 @@ urlpatterns = patterns('',
     url(r'^submitpaper/$', views.submitpaper, name='submitpaper'),
     url(r'^accounts/profile/$', views.index, name='indexfromfailedlogin'),
     # magic token api for annotation
-    url(r'^api/token/?P<paper_id>\d+)/$', utils.generate_token, name='token'),
+    url(r'^api/token/(?P<paper_id>\d+)/$', utils.generate_token, name='token'),
 )
