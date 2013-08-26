@@ -29,33 +29,40 @@
 		     } 
 		});
 		$("#paper-body").on("mouseup", function(e){
-			highlight();
-			bootbox.prompt("Feedback:", function(result) {
-				$.post("/api/save/{{ paper.id }}/", { data: $("#paper-body").html(),
-													  content: result,
-													  author: {{author.id}} });
-			});
+			if(highlight()){
+				bootbox.prompt("Feedback:", function(result) {
+					$.post("/api/save/{{ paper.id }}/", { data: $("#paper-body").html(),
+														  content: result,
+														  author: {{author.id}} });
+				});
+			}
 		});
 
 		function highlight() {
 		    var selection = window.getSelection().getRangeAt(0);
 		    var selectedText = selection.extractContents();
-		    var span = $("<span class='highlight'>" + selectedText.textContent + "</span>");
-		    var note = $("<sup>"+feedbackAdded+"</sup>");
-		    feedbackAdded++;
-		    selection.insertNode(span[0]);
-		    selection.collapse(false);
-		    selection.insertNode(note[0]);
-		   
-		    if (selectedText.childNodes[1] != undefined){
-		        console.log(selectedText.childNodes[1]);
-		        $(selectedText.childNodes[1]).remove();
-		    }
-		    
-		    var txt = $('#paper-body').html();
+		    var snippetLength = selectedText.textContent.length;
+		    if(snippetLength>0&&snippetLength<150) {
+			    var span = $("<span class='highlight'>" + selectedText.textContent + "</span>");
+			    var note = $("<sup id='note+"+feedbackAdded+"'><a href='#"+feedbackAdded+"'>"+feedbackAdded+"</a></sup>");
+			    feedbackAdded++;
+			    selection.insertNode(span[0]);
+			    selection.collapse(false);
+			    selection.insertNode(note[0]);
+			   
+			    if (selectedText.childNodes[1] != undefined){
+			        console.log(selectedText.childNodes[1]);
+			        $(selectedText.childNodes[1]).remove();
+			    }
+			    
+			    var txt = $('#paper-body').html();
 
-		    $('#paper-body').html(txt.replace(/<\/span>(?:\s)*<span class="highlight">/g, ''));
-		     clearSelection();
+			    $('#paper-body').html(txt.replace(/<\/span>(?:\s)*<span class="highlight">/g, ''));
+			     clearSelection();
+			     return true;
+			 }
+			 else
+			 	return false;
 		}	
 
 		function clearSelection() {
@@ -76,7 +83,7 @@
 
 <ul>
 {% for feedback in feedback_list %}
-	<li> {{ feedback.content }} {% if ownPaper %}<a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a>{% endif %}<br> - {{ feedback.author.user.username }} </li>
+	<li id="{{ forloop.counter }}"> <a href="#note{{ forloop.counter }}">({{ forloop.counter }})</a> {{ feedback.content }} {% if ownPaper %}<a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a>{% endif %}<br> - {{ feedback.author.user.username }} </li>
 {% endfor %}
 </ul>
 
