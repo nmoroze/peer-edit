@@ -178,13 +178,6 @@ ALLOWED_HOSTS = ['*']
 assert 'DJANGO_SECRET_KEY' in os.environ, 'Set DJANGO_SECRET_KEY'
 SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY')
 
-assert 'ANNOTATE_KEY' in os.environ, 'Set DJANGO_SECRET_KEY'
-ANNOTATE_KEY = get_env_setting('ANNOTATE_KEY')
-
-assert 'ANNOTATE_SECRET' in os.environ, 'Set DJANGO_SECRET_KEY'
-ANNOTATE_SECRET = get_env_setting('ANNOTATE_SECRET')
-
-
 # Uncomment these to activate and customize Celery:
 # CELERY_ALWAYS_EAGER = False  # required to activate celeryd
 # BROKER_HOST = 'localhost'
