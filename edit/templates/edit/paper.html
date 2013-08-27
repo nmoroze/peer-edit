@@ -43,6 +43,7 @@
 						$("#note"+feedbackAdded).remove();
 					}
 					else {
+						addFeedbackToDOM(result, "{{ author.user.username }}");
 						feedbackAdded++;
 						$.post("/api/save/{{ paper.id }}/", { data: $("#paper-body").html(),
 															  content: result,
@@ -56,7 +57,7 @@
 		function highlight() {
 			var selection = window.getSelection();
 			var range = selection.getRangeAt(0);
-			var length = range.endOffset-range.startOffset;
+			var length = Math.abs(range.endOffset-range.startOffset);
 			console.log(length);
 			if(length>0&&length<300) {
 				var $startSpan = $("<span id='hl"+feedbackAdded+"' class=\"highlight\"/>");
@@ -69,6 +70,14 @@
 				return true;
 			}
 			return false;
+		}
+
+		function addFeedbackToDOM(content, username) {
+			$("#feedback ul").append(
+				$("<li>").attr('id',feedbackAdded).append(
+						$("<a>").attr("href", "#note"+feedbackAdded).append(
+							"("+feedbackAdded+") ")).append(
+								content+"<br>- "+username));
 		}	
 	});
 </script>
@@ -79,6 +88,7 @@
 
 <p id="paper-body" readonly> {{ paper.body|safe }} </p>
 
+<div id="feedback">
 <ul>
 {% for feedback in feedback_list %}
 	{% if feedback.chosen %}
@@ -87,6 +97,6 @@
 	{% endif %}
 {% endfor %}
 </ul>
-
+</div>
 {% endblock %}
 
