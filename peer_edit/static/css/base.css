@@ -78,6 +78,16 @@ input.feedback {
 	background-color: #3EB200;
 }
 
+ul {
+	list-style-type: none;
+	padding: 0px;
+}
+
+li {
+	list-style-type: none;
+	border-bottom: 2px solid black;
+}
+
 @media (min-width: 768px) {
 	.container {
 		max-width: 750px;
