@@ -4,32 +4,26 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Peer review site!">
-	<title>Revisely</title>
+	<title>Revisely!</title>
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
-	<link href="/static/css/base.css" rel="stylesheet" type="text/css">
+	<link href="../static/styles/base.css" rel="stylesheet" type="text/css">
 	<link href="/static/css/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<!-- {% if form.errors %} -->
-	<!-- <p>Your username and password didn't match. Please try again.</p> -->
-	<!-- {% endif %} -->
-
-	<header>
-		<div class="container">
-			<div class="jumbotron">
-				<div>
-					<h1 id="logo">Revisely</h1>
-					<h2 class="light">Peer editing for the web</h2>
-				</div>
-				<a data-toggle="modal" href="#signup" class="btn btn-success btn-huge"><i class="icon-caret-right"></i>&nbsp Get started</a>
-				<br>
-				<p class="light"> Got an account? <a data-toggle="modal" href="#login">Log in.</a></p>
-			</div>
-			<img src="http://placehold.it/600x400&text=screenshot">
+	<div class="container">
+		<div class="jumbotron">
+			<img src="http://placehold.it/300x200&text=screenshot!" class="img-responsive">
+			<header>
+				<h1 id="logo">Revisely</h1>
+				<h3 class="light">Peer editing, for the web.</h3>
+			</header>
+			<a data-toggle="modal" href="#signup" class="btn btn-success btn-huge"><i class="icon-play"></i>&nbsp Get started</a>
+			<br>
+			<h5 class="light"> Got an account? <a data-toggle="modal" href="#login">Log in.</a></h5>
 		</div>
-	</header>
+	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="signup" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
@@ -87,14 +81,26 @@
 		</div>		
 	</div>
 
-</form>
-<div class="container">
-	<div class="row">
-		After spending hours working on a piece of writing, it can be hard to trust your own judgement. Peer editing can be a good way to revise your work, but is impossible without someone else. Enter Revisely, which allows you to post any piece of writing you are working on along with a specific question. By putting a point bounty on your question, you can ensure an accurate answer. Contributing to the community and answering others' questions will earn you even more points to ask questions of your own.
-      </div>
-</div>
-<script src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<h2>Heading</h2>
+				<p class="light">After spending hours working on a piece of writing, it can be hard to trust your own judgement. Peer editing can be a good way to revise your work, but is impossible without someone else. Enter Revisely, which allows you to post any piece of writing you are working on along with a specific question. By putting a point bounty on your question, you can ensure an accurate answer. Contributing to the community and answering others' questions will earn you even more points to ask questions of your own. </p>
+				<p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+			</div>
+			<div class="col-lg-4">
+				<h2>Heading</h2>
+				<p class="light">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+				<p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+			</div>
+			<div class="col-lg-4">
+				<h2>Heading</h2>
+				<p class="light">Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+				<p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+			</div>
+		</div>
+	</div>
+	<script src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script> 
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

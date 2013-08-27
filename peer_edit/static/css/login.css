@@ -1,69 +1,23 @@
-body {
-	font-family: "Helvtica Neue", "Helvetica", "Arial", sans-serif;
-	font-size: 18px;
-}
-
-.container {
-	max-width: 900px;
-}
-
-header {
-	background-color: lightgrey;
-}
-
-header .container {
-	margin: 0 auto;
-	padding: 0;
-	max-width: 1000px;
-}
-
-.jumbotron {
-	margin: 0 auto;
-	background-color: lightgrey;
-	padding: 50px 0 70px 0 !important;
-}
-
-.jumbotron div {
-	text-align: left;
-	/*text-shadow: 2px 1px 0 white;*/
-}
-
 #logo {
-	font-size: 3em;
+	font-size: 48px;
 }
-
-.jumbotron h2 {
-	text-shadow: 0px 1px 1px white;
+.jumbotron {
+	text-align: center;
+	background-color: #F9F9F9;
+	box-shadow: 0 0 5px #CCCCCC;
 }
-
-.jumbotron .btn {
-	margin-top: 50px;
-	width: 300px;
-	display: block;
-	font-size: 2em;
-}
-
-.jumbotron p {
-	float: left;
-	display: block;
-	margin-top: -25px;
-}
-
-header .container img {
-	display: none;
-}
-
-@media (min-width: 1200px) {
-	header .container img {
-		position: absolute;
-		display: block;
-		width: 600px;
-		height: 400px;
-		top: 41px;
-		right: 220px;
+@media (min-width: 768px) {
+	.jumbotron {
+		text-align: left;
+	}
+	.jumbotron img {
+		float: right;
+		padding-top: 5%;
 	}
 }
-
-.row {
-	padding-top: 80px;
+@media (min-width: 1200px) {
+	.jumbotron img {
+		padding-top: 0;
+		width: 50%;
+	}
 }
