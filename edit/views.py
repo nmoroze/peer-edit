@@ -80,7 +80,7 @@ def feedback(request, feedback_id):
 	fbAuthor = feedback.author
 	pAuthor = paper.author
 	myAuthor = Author.objects.all().get(user=request.user)
-	notice = Notification(content="Your feedback for '"+paper.question+"' was chosen as the best!", author=fbAuthor)
+	notice = Notification(content="Your feedback for '"+paper.question+"' was given "+request.POST['points']+" points.", author=fbAuthor)
 	notice.save()
 	reward = int(request.POST['points'])
 	paper.points -= reward
@@ -96,7 +96,7 @@ def submitfeedback(request):
 	author = Author.objects.all().get(user=request.user)
 	feedback = Feedback(content=request.POST['feedback'], author=Author.objects.all().get(user=request.user), paper=paper)
 	feedback.save()
-	notification = Notification(content=author.user.username+" submitted feedback on "+paper.question, author=paper.author)
+	notification = Notification(content=author.user.username+" submitted feedback on '"+paper.question+"'.", author=paper.author)
 	notification.save()
 	return HttpResponseRedirect("/edit/"+str(paper.id))
 
