@@ -13,7 +13,11 @@ from edit.models import *
 
 @login_required
 def index(request):
-	latest_paper_list = Paper.objects.order_by('-pub_date')[:20]
+	latest_paper_list = Paper.objects.all()
+	latest_paper_list = latest_paper_list.filter(points__gte=1)
+	latest_paper_list.order_by('-pub_date')[:20]
+	latest_paper_list = latest_paper_list.order_by('-points')[:20]
+	#querySet = Paper.objects.order_by('-pub_date')[:20].order_by('points')[:20]
 	template = loader.get_template('edit/index.html')
 	author = Author.objects.all().get(user=request.user)
 	notifications = Notification.objects.filter(author=author)

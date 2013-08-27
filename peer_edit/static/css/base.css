@@ -88,6 +88,10 @@ li {
 	border-bottom: 2px solid black;
 }
 
+.highlight{
+    background-color:#F3F781;
+}
+
 @media (min-width: 768px) {
 	.container {
 		max-width: 750px;
