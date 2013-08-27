@@ -50,7 +50,7 @@
 		    var selection = window.getSelection().getRangeAt(0);
 		    var selectedText = selection.extractContents();
 		    var snippetLength = selectedText.textContent.length;
-		    if(snippetLength>0&&snippetLength<150) {
+		    if(snippetLength>0&&snippetLength<300) {
 			    var span = $("<span class='highlight'>" + selectedText.textContent + "</span>");
 			    var note = $("<sup id='note"+feedbackAdded+"'><a href='#"+feedbackAdded+"'>"+feedbackAdded+"</a></sup>");
 			    feedbackAdded++;
