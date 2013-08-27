@@ -38,50 +38,38 @@
 		$("#paper-body").on("mouseup", function(e){
 			if(highlight()){
 				bootbox.prompt("Feedback:", function(result) {
-					$.post("/api/save/{{ paper.id }}/", { data: $("#paper-body").html(),
-														  content: result,
-														  author: {{author.id}} });
+					if(result==null || result=="") {
+						$("#hl"+feedbackAdded).contents().unwrap();
+						$("#note"+feedbackAdded).remove();
+					}
+					else {
+						feedbackAdded++;
+						$.post("/api/save/{{ paper.id }}/", { data: $("#paper-body").html(),
+															  content: result,
+															  author: {{author.id}} });
+					}
 				});
 			}
 		});
 		{% endif %}
 
 		function highlight() {
-		    var selection = window.getSelection().getRangeAt(0);
-		    var selectedText = selection.extractContents();
-		    var snippetLength = selectedText.textContent.length;
-		    if(snippetLength>0&&snippetLength<300) {
-			    var span = $("<span class='highlight'>" + selectedText.textContent + "</span>");
-			    var note = $("<sup id='note"+feedbackAdded+"'><a href='#"+feedbackAdded+"'>"+feedbackAdded+"</a></sup>");
-			    feedbackAdded++;
-			    selection.insertNode(span[0]);
-			    selection.collapse(false);
-			    selection.insertNode(note[0]);
-			   
-			    // if (selectedText.childNodes[1] != undefined){
-			    //     console.log(selectedText.childNodes[1]);
-			    //     $(selectedText.childNodes[1]).remove();
-			    // }
-			    
-			    var txt = $('#paper-body').html();
+			var selection = window.getSelection();
+			var range = selection.getRangeAt(0);
+			var length = range.endOffset-range.startOffset;
+			console.log(length);
+			if(length>0&&length<300) {
+				var $startSpan = $("<span id='hl"+feedbackAdded+"' class=\"highlight\"/>");
+				var $note = $("<sup id='note"+feedbackAdded+"'><a href='#"+feedbackAdded+"'>"+feedbackAdded+"</a></sup>");
 
-			    $('#paper-body').html(txt.replace(/<\/span>(?:\s)*<span class="highlight">/g, ''));
-			     clearSelection();
-			     return true;
-			 }
-			 else {
-			 	selection.insertNode(selectedText);
-			 	return false;
-			 }
+				range.insertNode($startSpan[0]);
+				range.surroundContents($startSpan[0]);
+				range.collapse(false);
+				range.insertNode($note[0]);
+				return true;
+			}
+			return false;
 		}	
-
-		function clearSelection() {
-		    if ( document.selection ) {
-		        document.selection.empty();
-		    } else if ( window.getSelection ) {
-		        window.getSelection().removeAllRanges();
-		    }
-		}
 	});
 </script>
 {% endblock %}
@@ -89,7 +77,7 @@
 {% block content %}
 <h1> {{ paper.question }} </h1>
 
-<p id="paper-body"> {{ paper.body|safe }} </p>
+<p id="paper-body" readonly> {{ paper.body|safe }} </p>
 
 <ul>
 {% for feedback in feedback_list %}
