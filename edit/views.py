@@ -13,7 +13,7 @@ from edit.models import *
 
 @login_required
 def index(request):
-	latest_paper_list = Paper.objects.filter(answered = False).order_by('-pub_date')[:20]
+	latest_paper_list = Paper.objects.order_by('-pub_date')[:20]
 	template = loader.get_template('edit/index.html')
 	author = Author.objects.all().get(user=request.user)
 	notifications = Notification.objects.filter(author=author)
@@ -80,16 +80,15 @@ def feedback(request, feedback_id):
 	fbAuthor = feedback.author
 	pAuthor = paper.author
 	myAuthor = Author.objects.all().get(user=request.user)
-	if pAuthor != myAuthor:
-		return HttpResponse("Only the author of the paper can select feedback!")
-	else:
-		notice = Notification(content="Your feedback for '"+paper.question+"' was chosen as the best!", author=fbAuthor)
-		notice.save()
-		fbAuthor.points += paper.points
-		fbAuthor.save()
-		paper.answered = True
-		paper.save()
-		return HttpResponseRedirect("/")
+	notice = Notification(content="Your feedback for '"+paper.question+"' was chosen as the best!", author=fbAuthor)
+	notice.save()
+	reward = int(request.POST['points'])
+	paper.points -= reward
+	fbAuthor.points += reward
+	fbAuthor.save()
+	feedback.chosen = True
+	paper.save()
+	return HttpResponseRedirect("/")
 
 @login_required
 def submitfeedback(request):

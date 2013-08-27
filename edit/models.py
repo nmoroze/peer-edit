@@ -15,7 +15,6 @@ class Paper(models.Model):
 	pub_date = models.DateTimeField('pub_date')
 	author = models.ForeignKey(Author)
 	points = models.IntegerField()
-	answered = models.BooleanField(default = False)
 	def __unicode__(self):
 		return self.question
 
@@ -23,6 +22,7 @@ class Feedback(models.Model):
 	content = models.TextField()
 	author = models.ForeignKey(Author)
 	paper = models.ForeignKey(Paper)
+	chosen = models.BooleanField(default = False)
 
 class Notification(models.Model):
 	content = models.TextField()

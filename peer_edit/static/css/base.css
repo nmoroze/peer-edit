@@ -56,6 +56,16 @@ input.btn {
 	margin-top: 2px;
 }
 
+input.feedback-btn {
+	width: 50%; !important
+	float: right;
+	margin-top: 0px; !important
+}
+
+input.feedback {
+	width:25%;
+}
+
 .btn-success {
 	background-color: #3EB200;
 }

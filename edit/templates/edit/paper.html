@@ -4,6 +4,11 @@
 <script src="/static/js/bootbox.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#point-input").on("change", function() {
+		    var val = Math.abs(parseInt(this.value, 10) || 1);
+		    this.value = val > {{ paper.points }} ? {{ paper.points }} : val;
+		});
+
 		var feedbackAdded = {{ feedback_list|length }} + 1;
 		$.ajaxSetup({ 
 		     beforeSend: function(xhr, settings) {
@@ -88,7 +93,10 @@
 
 <ul>
 {% for feedback in feedback_list %}
-	<li id="{{ forloop.counter }}"> <a href="#note{{ forloop.counter }}">({{ forloop.counter }})</a> {{ feedback.content }} {% if ownPaper %}<a href="/bestfeedback/{{ feedback.id }}" style="float: right;">Choose as best</a>{% endif %}<br> - {{ feedback.author.user.username }} </li>
+	{% if feedback.chosen %}
+	{% else %}
+	<li id="{{ forloop.counter }}"> <a href="#note{{ forloop.counter }}">({{ forloop.counter }})</a> {{ feedback.content }} {% if paper.points != 0 and ownPaper %}<form method="post" action="/bestfeedback/{{ feedback.id }}/" style="float: right;">{% csrf_token %}<a href="#" onClick="$(this).parent().submit(); return false;">Give points </a><input id="point-input" class="feedback" type="number" name="points" min="1" max={{ paper.points }} required="required"></form>{% endif %}<br> - {{ feedback.author.user.username }} </li>
+	{% endif %}
 {% endfor %}
 </ul>
 
