@@ -28,6 +28,8 @@
 		         }
 		     } 
 		});
+		{% if ownPaper %}
+		{% else %}
 		$("#paper-body").on("mouseup", function(e){
 			if(highlight()){
 				bootbox.prompt("Feedback:", function(result) {
@@ -37,6 +39,7 @@
 				});
 			}
 		});
+		{% endif %}
 
 		function highlight() {
 		    var selection = window.getSelection().getRangeAt(0);
