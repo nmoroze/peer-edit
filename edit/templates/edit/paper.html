@@ -44,7 +44,7 @@
 		    var snippetLength = selectedText.textContent.length;
 		    if(snippetLength>0&&snippetLength<150) {
 			    var span = $("<span class='highlight'>" + selectedText.textContent + "</span>");
-			    var note = $("<sup id='note+"+feedbackAdded+"'><a href='#"+feedbackAdded+"'>"+feedbackAdded+"</a></sup>");
+			    var note = $("<sup id='note"+feedbackAdded+"'><a href='#"+feedbackAdded+"'>"+feedbackAdded+"</a></sup>");
 			    feedbackAdded++;
 			    selection.insertNode(span[0]);
 			    selection.collapse(false);
@@ -61,8 +61,10 @@
 			     clearSelection();
 			     return true;
 			 }
-			 else
+			 else {
+			 	selection.insertNode(selectedText);
 			 	return false;
+			 }
 		}	
 
 		function clearSelection() {
