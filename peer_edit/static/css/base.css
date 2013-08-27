@@ -18,6 +18,9 @@ img {
 input {
 	width: 99%;
 }
+.container {
+	max-width: 500px;
+}
 .light {
 	color: darkgrey;
 }
@@ -51,9 +54,9 @@ input.btn {
 }
 
 input.feedback-btn {
-	width: 50%; !important
+	width: 50%;
 	float: right;
-	margin-top: 0px; !important
+	margin-top: 0px;
 }
 
 input.feedback {
@@ -68,14 +71,6 @@ input.feedback {
 }
 .btn-lg {
 	font-size: 24px;
-}
-.btn-huge {
-	font-size: 36px;
-	padding: 15px 25px;
-	background-color: #F4A037;
-}
-.btn-huge:hover {
-	background-color: #3EB200;
 }
 
 ul {

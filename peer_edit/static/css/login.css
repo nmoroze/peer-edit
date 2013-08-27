@@ -10,6 +10,14 @@ body {
 	background-color: #F9F9F9;
 	box-shadow: 0 0 5px #CCCCCC;
 }
+.btn-huge {
+	font-size: 24px;
+	padding: 15px 25px;
+	background-color: #F4A037;
+}
+.btn-huge:hover {
+	background-color: #3EB200;
+}
 @media (min-width: 768px) {
 	.jumbotron {
 		text-align: left;
@@ -18,10 +26,17 @@ body {
 		float: right;
 		padding-top: 5%;
 	}
+	.btn-huge {
+		font-size: 28px;
+		width: auto;
+	}
 }
 @media (min-width: 1200px) {
 	.jumbotron img {
 		padding-top: 0;
 		width: 50%;
+	}
+	.btn-huge {
+		font-size: 36px;
 	}
 }
