@@ -38,6 +38,7 @@ def signout(request):
 	logout(request)
 	return HttpResponseRedirect("/")
 
+@login_required
 def edit(request, paper_id):
 	print paper_id
 	paper = Paper.objects.get(id=paper_id)

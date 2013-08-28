@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^submitpaper/$', views.submitpaper, name='submitpaper'),
     url(r'^accounts/profile/$', views.index, name='indexfromfailedlogin'),
-    # magic token api for annotation
-    url(r'^api/save/(?P<paper_id>\d+)/$', utils.save, name='token'),
+
+    url(r'^api/papersave/(?P<paper_id>\d+)/$', utils.save, name='token'),
+    url(r'^api/feedbacksave/(?P<paper_id>\d+)/$', utils.feedbacksave, name='token'),
+    url(r'^api/delfeedback/$', utils.delete, name='token'),
 )
