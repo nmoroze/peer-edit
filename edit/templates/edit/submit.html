@@ -1,12 +1,29 @@
 {% extends "edit/base.html" %}
 
+{% block customscripts %}
+<script>
+	$(document).ready(function(){
+		var modified = false;
+		$("#form").on("submit", function(e){
+			if(!modified) { 
+				modified = true;
+				e.preventDefault();
+				console.log('hi');
+				$("#bodyForm").val($("#bodyForm").val().replace(/\n/g, "<br />"));
+				$("#form").submit();
+				return false;
+			}
+		});
+	});
+</script>
+{% endblock %}
 {% block content %}
-<form action="/submitpaper/" method="post">
+<form id="form" action="/submitpaper/" method="post">
 {% csrf_token %}
 Question <br>
 <input style="width:100%" type="text" name="question" required="required"><br>
 Content <br>
-<textarea style="width:100%" rows="50"  name="body" required="required">
+<textarea id="bodyForm" style="width:100%" rows="50"  name="body" required="required">
 </textarea>
 <br>
 Points <br>
