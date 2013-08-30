@@ -10,97 +10,173 @@
 	<link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
 	<link href="/static/css/base.css" rel="stylesheet" type="text/css">
 	<link href="/static/css/login.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-43028218-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
 </head>
 <body>
+<!-- Mobile friendly navbar adapted from example. -->
+    <!-- http://twitter.github.io/bootstrap/examples/starter.template.html -->
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="./" class="navbar-brand">Revisely</a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#contact" data-toggle="modal">Contact</a>
+        </li>
+        <li>
+          <a href="https://github.com/nmoroze/peer-edit">Contribute</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
 	<div class="container">
 		<div class="jumbotron">
-			<img src="http://placehold.it/300x200&text=screenshot!" class="img-responsive">
+			<a href="http://i.imgur.com/ZQiqBHb.png"><img src="http://i.imgur.com/2oLu6bX.png" class="img-responsive"></a>
 			<header>
 				<h1 id="logo">Revisely</h1>
 				<h3 class="light">Peer editing, for the web.</h3>
 			</header>
-			<a data-toggle="modal" href="#signup" class="btn btn-success btn-huge"><i class="icon-play"></i>&nbsp Get started</a>
-			<br>
-			<h5 class="light"> Got an account? <a data-toggle="modal" href="#login">Log in.</a></h5>
+			  <a class="coinbase-button" data-code="2ee8fbf2356569c843227aaaa349e233" data-button-style="custom_small" href="https://coinbase.com/checkouts/2ee8fbf2356569c843227aaaa349e233">Donate with Bitcoins</a><script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
+			  <h5 class="light">Donations earn you a code to access the beta. If you don't have bitcoins to give, please share us on Twitter and send a link to the Twitter post to <a href="mailto:info@revisely.com">info@revisely.com</a>.</h5>
+        <!--<a data-toggle="modal" href="#signup" class="btn btn-success btn-huge"><i class="icon-play"></i>&nbsp Have a beta code? Get started here</a>-->
+         <h5 class="light"> Have a beta code? <a data-toggle="modal" href="#signup">Sign up.</a></h5>
+         <h5 class="light"> Got an account? <a data-toggle="modal" href="#login">Log in.</a></h5>
+
+				 <!-- AddThis Button BEGIN -->
+			<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+			<a class="addthis_button_preferred_1"></a>
+			<a class="addthis_button_preferred_2"></a>
+			<a class="addthis_button_compact"></a>
+			<a class="addthis_counter addthis_bubble_style"></a>
+			</div>
+			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52019ae877647cf1"></script>
+			<!-- AddThis Button END --> 
+
 		</div>
 	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="signup" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Sign Up</h4>
-				</div>
-				<form method="post" action="/createuser/" id="signup">
-					<div class="modal-body">
-							{% csrf_token %} 
-							Username:
-							<br>
-							<input type="text" name="username" required="required"><br>
-							Password:
-							<br>
-							<input type="password" name="pass" required="required"><br>
-							Confirm Password:
-							<br>
-							<input type="password" name="confirm" required="required"><br>
-							<br>	
-							<!--<iframe src="http://crapcha.com/embed/" frameborder="0" scrolling="0" width="300" height="150"></iframe>-->
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-success btn-lg">Sign up</button>
-					</div>
-				</form>
-			</div>
-		</div>		
-	</div><!-- /.modal -->
+    <!-- Modal -->
+  <div class="modal fade" id="signup" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Sign Up</h4>
+        </div>
+        <form method="post" action="/createuser/" id="signup">
+          <div class="modal-body">
+              {% csrf_token %} 
+              Username:
+              <br>
+              <input type="text" name="username" required="required"><br>
+              Password:
+              <br>
+              <input type="password" name="pass" required="required"><br>
+              Confirm Password:
+              <br>
+              <input type="password" name="confirm" required="required"><br>
+              <br> 
+              Beta Code:
+              <input type="text" name="code" required="required"><br>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success btn-lg">Sign up</button>
+          </div>
+        </form>
+      </div>
+    </div>    
+  </div><!-- /.modal -->
 
-	<div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">Login</h4>
-				</div>
-				<form method="post" action="{% url "django.contrib.auth.views.login" %}" id="login">
-					<div class="modal-body">
-							{% csrf_token %}
-							<br>
-							{{ form.username.label_tag }} 
-							{{ form.username }} 
-							<br>
-							{{ form.password.label_tag }} 
-							{{ form.password }}
-					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-success btn-lg">Log in</button>
-						<input type="hidden" name="next" value="{{ next }}" />
-					</div>
-				</form>
-			</div>
-		</div>		
-	</div>
+  <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Login</h4>
+        </div>
+        <form method="post" action="{% url "django.contrib.auth.views.login" %}" id="login">
+          <div class="modal-body">
+              {% csrf_token %}
+              <br>
+              {{ form.username.label_tag }} 
+              {{ form.username }} 
+              <br>
+              {{ form.password.label_tag }} 
+              {{ form.password }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success btn-lg">Log in</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+          </div>
+        </form>
+      </div>
+    </div>    
+  </div>
 
+	
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-4">
-				<h2>Heading</h2>
-				<p class="light">After spending hours working on a piece of writing, it can be hard to trust your own judgement. Peer editing can be a good way to revise your work, but is impossible without someone else. Enter Revisely, which allows you to post any piece of writing you are working on along with a specific question. By putting a point bounty on your question, you can ensure an accurate answer. Contributing to the community and answering others' questions will earn you even more points to ask questions of your own. </p>
-				<p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+			<div class="col-lg-6">
+				<h2>Powerful Tools</h2>
+				<p class="light">Thanks to our unique annotation tools, Revisely is more suited for revising papers than a general question-and-answer site. Users can highlight snippets of text and annotate them with their feedback, allowing them to specifically pinpoint the parts of your submission that need work. Since all the notes are combined and made public, users can build off of each other's feedback to give you a comprehensive overview of what you need to improve.
 			</div>
-			<div class="col-lg-4">
-				<h2>Heading</h2>
-				<p class="light">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-				<p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
-			</div>
-			<div class="col-lg-4">
-				<h2>Heading</h2>
-				<p class="light">Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-				<p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
+			<div class="col-lg-6">
+				<h2>Quality Feedback</h2>
+				<p class="light">With Revisely's unique point-based system, we ensure that all feedback given is relevant and high quality. You can reward points to the authors of good feedback, and give quality feedback so you have more points for your own papers. With the point economy, everyone on Revisely does their share of providing great feedback so that they can receive great feedback in return.</p>
 			</div>
 		</div>
 	</div>
+	 <div id="contact" class="modal fade in" >  
+      <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">x</a>  
+        <h3>Contact</h3>  
+      </div>  
+      <div class="modal-body">  
+        Email: <a href="mailto:info@revisely.com">info@revisely.com</a>. <br>
+        Twitter: <a href="https://twitter.com/reviselyedit">@ReviselyEdit<a>
+        </p>
+      </div>  
+      <div class="modal-footer">  
+        <button href="#" class="btn btn-success" data-dismiss="modal">Close</button>  
+      </div>
+    </div>
+    </div>
+  </div>  
 	<script src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script> 
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43028218-1', 'revisely.com');
+  ga('send', 'pageview');
+
+</script> 
 </body>
 </html>
