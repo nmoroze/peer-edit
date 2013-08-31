@@ -2,130 +2,109 @@
 
 {% block customscripts %}
 <script src="/static/js/bootbox.min.js"></script>
+<script src="/static/js/ajaxvalidation.js"></script>
+
 <script type="text/javascript">
-	$(document).ready(function() {
-		for(var i=0; i<$("sup").length; i++) {
-			for(var l=0; l<$("li").length; l++) {
-				if($("li").eq(l).attr("id")==$("sup").eq(i).attr("key")){
-					$("sup").eq(i).children().html($("li").eq(l).attr("number"));
-					continue;
-				}
-			}
-		}
-		$("#point-input").on("change", function() {
+$(document).ready(function() {
+	$(".popover").remove();
+	$("#point-input").on("change", function() {
 		    var val = Math.abs(parseInt(this.value, 10) || 1);
 		    this.value = val > {{ paper.points }} ? {{ paper.points }} : val;
-		});
-
-		var feedbackAdded = {{ feedback_list|length }} + 1;
-		$.ajaxSetup({ 
-		     beforeSend: function(xhr, settings) {
-		         function getCookie(name) {
-		             var cookieValue = null;
-		             if (document.cookie && document.cookie != '') {
-		                 var cookies = document.cookie.split(';');
-		                 for (var i = 0; i < cookies.length; i++) {
-		                     var cookie = jQuery.trim(cookies[i]);
-		                     // Does this cookie string begin with the name we want?
-		                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
-		                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-		                     break;
-		                 }
-		             }
-		         }
-		         return cookieValue;
-		         }
-		         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-		             // Only send the token to relative URLs i.e. locally.
-		             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-		         }
-		     } 
-		});
-		{% if ownPaper %}
-		{% else %}
-		$("#paper-body").on("mouseup", function(e){
-			var selection = window.getSelection();
-			var range = selection.getRangeAt(0);
-
-			if(isValidLength(range)){
-				bootbox.prompt("Feedback:", function(result) {
-					if(result!=null && result!="") {
-						$.post("/api/feedbacksave/{{ paper.id }}/", 
-							{ data: $("#paper-body").html(),
-							  content: result,
-							  author: {{author.id}} }, 
-							function(data) {
-								highlight(range, data);
-								addFeedbackToDOM(result, "{{ author.user.username }}", data);
-								feedbackAdded++;
-								$.post("/api/papersave/{{ paper.id }}/",
-									{data: $("#paper-body").html(),});
-							});
-					}
-				});
-			}
-		});
-		{% endif %}
-		$(document).on("click", ".delete", function() {
-			console.log("yes");
-			console.log($(this).attr("feedback"));
-			deleteFeedback($(this).attr("feedback"));
-			$.post("/api/delfeedback/", 
-				{ id: $(this).attr("feedback"),},
-				  function(result) {
-				  	console.log(result);
-				  });
-			$.post("/api/papersave/{{ paper.id }}/", 
-				{ data: $("#paper-body").html()});
-			$(this).parent().remove();
-			location.reload(true); //killing the ajax sexiness until I manually readjust stuff (so lazy...)
-		});
-
-		function deleteFeedback(num) {
-			$("#hl"+num).contents().unwrap();
-			$("#note"+num).empty();
-			$("#note"+num).remove();
-		}
-		function isValidLength(range) {
-			var length = Math.abs(range.endOffset-range.startOffset);
-			return length>0 && length<300; 
-		}
-
-		function highlight(range, id) {
-			console.log(range.endOffset-range.startOffset);
-			var $startSpan = $("<span id='hl"+id+"' class=\"highlight\"/>");
-			var $note = $("<sup id='note"+id+"' key='"+id+"'><a href='#"+id+"'>"+feedbackAdded+"</a></sup>");
-
-			range.insertNode($startSpan[0]);
-			range.surroundContents($startSpan[0]);
-			range.collapse(false);
-			range.insertNode($note[0]);
-		}
-
-		function addFeedbackToDOM(content, username, id) {
-			$("#feedback ul").append(
-				$("<li>").attr('id',id).attr('number', feedbackAdded).append(
-						$("<a>").attr("href", "#note"+id).append(
-							"("+feedbackAdded+") ")).append(
-								content+"<br>- "+username).append(
-									$("<a>").addClass("delete").attr("onClick", "return false;").attr("feedback", id).attr("href", "#").append(" Delete")));
-		}	
 	});
+
+    {% for f in feedback_list %}
+    	$("#{{ f.id }}").popover({
+			title: "{{ f.author.user.username }} says - ",
+			content: generatePopoverContent("{{ f.content }}", '{{ f.author.user }}' == '{{ user }}', {{ f.id }}),
+			trigger: 'manual',
+			html:true
+		}).on("mouseenter", function () {
+	        var _this = this;
+	        $(this).popover("show");
+	        $(this).siblings(".popover").on("mouseleave", function () {
+	            $(_this).popover('hide');
+	        });
+	    }).on("mouseleave", function () {
+	        var _this = this;
+	        setTimeout(function () {
+	            if (!$(".popover:hover").length) {
+	                $(_this).popover("hide")
+	            }
+	        }, 100);
+	    });
+    {% endfor %}
+    {% if not ownPaper %}
+	$("#paper-body").on("mouseup", function(e) {
+		var range = window.getSelection().getRangeAt(0);
+
+		if(isValidLength(range)) {
+			bootbox.prompt("Feedback:", function(result) {
+				if(result!=null && result!="") {
+					$.post("/feedback/save/", 
+						{content: result,
+						 author: {{ author.id }},
+						 paper: {{ paper.id }},
+						},
+						function(data) {
+							highlight(range, data);
+							$("#"+result)
+							$.post("/paper/save/", {paper:{{ paper.id }}, body:$("#paper-body").html()});
+							location.reload(true);
+					});
+				}
+			});
+		}
+	});
+
+	{% endif %}
+
+
+});
+
+function highlight(range, id) {
+	var $span = $("<span id='"+id+"' class=\"highlight\"/>");
+
+	range.insertNode($span[0]);
+	range.surroundContents($span[0]);
+}
+
+function generatePopoverContent(content, ownFeedback, id) {
+	var html = 
+	"<p>"+content+"</p>";
+	{% if ownPaper %}
+		var ownPaper = true;
+	{% else %}
+		var ownPaper = false;
+	{% endif %}
+
+	if(ownFeedback||ownPaper)
+		html+="<a href='#' onClick='del("+id+"); return false;'>Delete</a><br>";
+	if(ownPaper)
+		html+="<form method='post' action='/bestfeedback/"+id+"/' style='float: right;'>{% csrf_token %}<a href='#' onClick='$(this).parent().submit(); return false;'>Give points </a><input id='point-input' class='feedback' type='number' name='points' min='1' max={{ paper.points }} required='required'></form>";
+
+	return html;
+}	
+
+function isValidLength(range) {
+	var length = Math.abs(range.endOffset-range.startOffset);
+	return length>0 && length<300; 
+}
+
+function del(id) {
+	$("#"+id).popover("destroy");
+	$("#"+id).contents().unwrap();
+	$.post("/feedback/delete/", {id: id}, function(r){
+		$.post("/paper/save/", {paper:{{ paper.id }}, body:$("#paper-body").html()}, function(d){
+			location.reload(true);
+		});
+	});
+}
 
 </script>
 {% endblock %}
 
 {% block content %}
 <h1> {{ paper.question }} </h1>
-
-<p id="paper-body" readonly> {{ paper.body|safe }} </p>
-
-<div id="feedback">
-<ul>
-{% for feedback in feedback_list %}
-	<li id="{{ feedback.id }}" number="{{ forloop.counter }}"> <a href="#note{{ feedback.id }}">({{ forloop.counter }})</a> {{ feedback.content }} {% if paper.points != 0 and ownPaper %}<form method="post" action="/bestfeedback/{{ feedback.id }}/" style="float: right;">{% csrf_token %}<a href="#" onClick="$(this).parent().submit(); return false;">Give points </a><input id="point-input" class="feedback" type="number" name="points" min="1" max={{ paper.points }} required="required"></form>{% endif %}<br> - {{ feedback.author.user.username }} {% if author == feedback.author or ownPaper %}<a class="delete" onClick="return false" feedback="{{ feedback.id }}" href="#">Delete</a></li>{% endif %}
-{% endfor %}
-</ul>
-</div>
+<div id="paper-body"> {{ paper.body|safe }} </div>
 {% endblock %}
 

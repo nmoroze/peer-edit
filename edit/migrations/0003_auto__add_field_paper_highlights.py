@@ -8,57 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Author'
-        db.create_table(u'edit_author', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('points', self.gf('django.db.models.fields.IntegerField')(default=5)),
-        ))
-        db.send_create_signal(u'edit', ['Author'])
-
-        # Adding model 'Paper'
-        db.create_table(u'edit_paper', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('question', self.gf('django.db.models.fields.CharField')(max_length=300)),
-            ('body', self.gf('django.db.models.fields.TextField')()),
-            ('pub_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['edit.Author'])),
-            ('points', self.gf('django.db.models.fields.IntegerField')()),
-        ))
-        db.send_create_signal(u'edit', ['Paper'])
-
-        # Adding model 'Feedback'
-        db.create_table(u'edit_feedback', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
-            ('range', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['edit.Author'])),
-            ('paper', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['edit.Paper'])),
-            ('chosen', self.gf('django.db.models.fields.BooleanField')(default=False)),
-        ))
-        db.send_create_signal(u'edit', ['Feedback'])
-
-        # Adding model 'Notification'
-        db.create_table(u'edit_notification', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('content', self.gf('django.db.models.fields.TextField')()),
-            ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['edit.Author'])),
-        ))
-        db.send_create_signal(u'edit', ['Notification'])
+        # Adding field 'Paper.highlights'
+        db.add_column(u'edit_paper', 'highlights',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=500),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Author'
-        db.delete_table(u'edit_author')
-
-        # Deleting model 'Paper'
-        db.delete_table(u'edit_paper')
-
-        # Deleting model 'Feedback'
-        db.delete_table(u'edit_feedback')
-
-        # Deleting model 'Notification'
-        db.delete_table(u'edit_notification')
+        # Deleting field 'Paper.highlights'
+        db.delete_column(u'edit_paper', 'highlights')
 
 
     models = {
@@ -110,8 +68,7 @@ class Migration(SchemaMigration):
             'chosen': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'content': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'paper': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['edit.Paper']"}),
-            'range': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+            'paper': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['edit.Paper']"})
         },
         u'edit.notification': {
             'Meta': {'object_name': 'Notification'},
@@ -123,6 +80,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Paper'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['edit.Author']"}),
             'body': ('django.db.models.fields.TextField', [], {}),
+            'highlights': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '500'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'points': ('django.db.models.fields.IntegerField', [], {}),
             'pub_date': ('django.db.models.fields.DateTimeField', [], {}),
