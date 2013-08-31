@@ -30,4 +30,4 @@ class Notification(models.Model):
 	author = models.ForeignKey(Author)
 
 class InviteCode(models.Model):
-	code = models.CharField()
+	code = models.CharField(max_length=6)
