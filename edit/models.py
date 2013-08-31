@@ -28,3 +28,6 @@ class Feedback(models.Model):
 class Notification(models.Model):
 	content = models.TextField()
 	author = models.ForeignKey(Author)
+
+class InviteCode(models.Model):
+	code = models.CharField()
