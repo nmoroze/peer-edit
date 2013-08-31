@@ -9,6 +9,9 @@
 				modified = true;
 				e.preventDefault();
 				console.log('hi');
+				$("#bodyForm").val($("#bodyForm").val().replace("<", "< "));
+				$("#bodyForm").val($("#bodyForm").val().replace("</", "< "));
+
 				$("#bodyForm").val($("#bodyForm").val().replace(/\n/g, "<br />"));
 				$("#form").submit();
 				return false;
