@@ -40,6 +40,7 @@ input {
 }
 
 .label-primary {
+	color: black !important;
 	background-color: lightgray;
 	padding-left: 2px;
 	padding-right: 2px;

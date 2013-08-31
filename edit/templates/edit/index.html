@@ -29,7 +29,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			{% if notification_list %}
 			<ul class="notifications">
 				{% for notification in notification_list %}
@@ -38,11 +38,12 @@ $(document).ready(function() {
 			</ul>
 			{% else %}
 			<br>
-			<p> No notifications. :( </p>
+			<p> No notifications. </p>
 			{% endif %}
 		</div>
 
-		<div class="col-sm-6">
+		<div class="col-sm-8">
+			<h3>Papers that Need Revisions</h3>
 			{% if latest_paper_list %}
 			<ul class="submissions">
 				{% for paper in latest_paper_list %}
