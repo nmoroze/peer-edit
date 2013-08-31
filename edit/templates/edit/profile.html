@@ -1,0 +1,30 @@
+{% extends "edit/base.html" %}
+{% block customscripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#profile").addClass("active");
+});	
+</script>
+{% endblock customscripts %}
+{% block content %}
+<h1>{{ username }}'s Profile</h1>
+<div class="col-md-4">
+	<h2>Points</h2>
+	<h4>{{ author.points }}</h4>
+</div>
+
+<div class="col-md-8">
+	{% if paper_list %}
+	<h2>Submissions</h2>
+	<ul class="submissions">
+		{% for paper in paper_list %}
+		<li><a class="paper" href="/edit/{{paper.id}}/"><span class="label-primary">{{ paper.points }} pts</span> {{ paper.question }}</a></li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<br>
+	<p>No papers! How about you submit one?</p>
+	{% endif %}
+</div>
+
+{% endblock %}

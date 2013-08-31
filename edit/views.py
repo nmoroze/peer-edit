@@ -37,6 +37,24 @@ def signout(request):
 	return HttpResponseRedirect("/")
 
 @login_required
+def myprofile(request):
+	myId = Author.objects.all().get(user=request.user).id
+	return HttpResponseRedirect("/profile/"+str(myId))
+
+def profile(request, author_id):
+	author = Author.objects.all().get(id=author_id)
+	username = author.user.username
+	paper_list = Paper.objects.all().filter(author=author)
+	context = RequestContext(request, {
+		'username': username,
+		'paper_list': paper_list,
+		'author': author,
+	})
+	template = loader.get_template('edit/profile.html')
+
+	return HttpResponse(template.render(context));
+
+@login_required
 def edit(request, paper_id):
 	print paper_id
 	paper = Paper.objects.get(id=paper_id)
