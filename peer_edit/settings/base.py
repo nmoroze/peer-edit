@@ -40,9 +40,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
-    # Key generator
-    'jwt',
-
     # Database migrations
     'south',
 
