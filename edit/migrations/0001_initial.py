@@ -31,7 +31,6 @@ class Migration(SchemaMigration):
         db.create_table(u'edit_feedback', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('content', self.gf('django.db.models.fields.TextField')()),
-            ('range', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['edit.Author'])),
             ('paper', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['edit.Paper'])),
             ('chosen', self.gf('django.db.models.fields.BooleanField')(default=False)),
@@ -46,6 +45,13 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'edit', ['Notification'])
 
+        # Adding model 'InviteCode'
+        db.create_table(u'edit_invitecode', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('code', self.gf('django.db.models.fields.CharField')(max_length=6)),
+        ))
+        db.send_create_signal(u'edit', ['InviteCode'])
+
 
     def backwards(self, orm):
         # Deleting model 'Author'
@@ -59,6 +65,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Notification'
         db.delete_table(u'edit_notification')
+
+        # Deleting model 'InviteCode'
+        db.delete_table(u'edit_invitecode')
 
 
     models = {
@@ -110,8 +119,12 @@ class Migration(SchemaMigration):
             'chosen': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'content': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'paper': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['edit.Paper']"}),
-            'range': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+            'paper': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['edit.Paper']"})
+        },
+        u'edit.invitecode': {
+            'Meta': {'object_name': 'InviteCode'},
+            'code': ('django.db.models.fields.CharField', [], {'max_length': '6'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'edit.notification': {
             'Meta': {'object_name': 'Notification'},
