@@ -65,16 +65,19 @@ def signup(request):
 def createuser(request):
 	if request.POST['pass'] != request.POST['confirm']:
 		return HttpResponse("Your passwords don't match, go back and try again")
+	elif User.objects.filter(username = request.POST['username']).count()>0:
+		return HttpResponse("Your username is not unique! Try another one")
+	elif InviteCode.objects.filter(code=request.POST['code']).count()>0:
+		InviteCode.objects.get(code=request.POST['code']).delete()
 	else:
-		if User.objects.filter(username = request.POST['username']).count()>0:
-			return HttpResponse("Your username is not unique! Try another one")
+		return HttpResponse("Invalid beta code!")
 
-		user = User.objects.create_user(request.POST['username'], '', request.POST['pass'])
-		author = Author(user = user, points=5)
-		author.save()
-		user = authenticate(username=request.POST['username'], password=request.POST['pass'])
-		login(request, user)
-		return HttpResponseRedirect("/")
+	user = User.objects.create_user(request.POST['username'], '', request.POST['pass'])
+	author = Author(user = user, points=5)
+	author.save()
+	user = authenticate(username=request.POST['username'], password=request.POST['pass'])
+	login(request, user)
+	return HttpResponseRedirect("/")
 
 @login_required
 def feedback(request, feedback_id):
