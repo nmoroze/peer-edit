@@ -2,8 +2,8 @@
 
 {% block customscripts %}
 <script src="/static/js/bootbox.min.js"></script>
-<!-- <script src="/static/js/ajaxvalidation.js"></script>
- -->
+<!-- <script src="/static/js/ajaxvalidation.js"></script>-->
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$.ajaxSetup({ 
@@ -42,6 +42,7 @@ $(document).ready(function() {
 			title: "{{ f.author.user.username }} says - ",
 			content: generatePopoverContent("{{ f.content }}", '{{ f.author.user }}' == '{{ user }}', {{ f.id }}),
 			trigger: 'manual',
+			placement: 'auto right',
 			html:true
 		}).on("mouseenter", function () {
 	        var _this = this;
