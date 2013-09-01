@@ -46,14 +46,6 @@ input {
 	padding-right: 2px;
 }
 
-input.btn {
-	border: 0;
-	background-color: orange;
-	color: white;
-	width: 10%;
-	margin-top: 2px;
-}
-
 input.feedback-btn {
 	width: 50%;
 	float: right;
@@ -178,7 +170,7 @@ input.btn {
 	border: 0;
 	background-color: orange;
 	color: white;
-	width: 10%;
+	width: auto !important;
 	margin-top: 2px;
 }
 
