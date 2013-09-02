@@ -13,4 +13,3 @@ elif env == "staging":
 else:
 	print "Env not recognized:", env
 
-DEBUG = True
