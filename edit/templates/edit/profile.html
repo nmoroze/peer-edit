@@ -36,8 +36,12 @@ $(document).ready(function() {
 {% block content %}
 <h1>{{ username }}'s Profile</h1>
 <div class="col-md-4">
-	<h2>Points</h2>
+	<h2>Accumulated Points</h2>
 	<h4 id="points">{{ author.total_points }} -- </h4>
+	<br>
+	<h2>Current Points</h2>
+	<h4>{{ author.points }}</h4>
+
 </div>
 
 <div class="col-md-8">
