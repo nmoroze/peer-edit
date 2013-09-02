@@ -12,3 +12,5 @@ elif env == "staging":
 	from test import *
 else:
 	print "Env not recognized:", env
+
+DEBUG = True
