@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Author(models.Model):
     user = models.OneToOneField(User)
     points = models.IntegerField(default = 5)
-    total_points = models.IntegerField(default = 5)
+    # total_points = models.IntegerField(default = 5)
     def __unicode__(self):
 		return self.user.username
 
