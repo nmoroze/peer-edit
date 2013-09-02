@@ -4,8 +4,43 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#dash").addClass("active");
+
+	var tour = new Tour();
+	tour.addSteps([
+	{
+		element: ".navbar-brand",
+		position: "bottom",
+		title: "Let's get started!",
+		content: "Welcome to Revisely -- peer editing, for the web! 
+		This tour will walk you through the site.
+		This is the navbar, where you can easily access your profile or user dashboard."
+	},
+	{
+		element: ".submissions",
+		position: "top",
+		title: "Revising papers",
+		content: "These are papers that you can help revise! 
+		Just highlight an area of text to provide feedback for the author."
+	},
+	{
+	element: "#user",
+		position: "bottom",
+		title: "Point system",
+		content: "Authors can reward good revisions with points, which you can use in turn to place a bounty on your own papers."
+	},
+	{
+	element: ".btn-large",
+		position: "bottom",
+		title: "Submitting a paper",
+		content: "Here you can submit some work of your own to get it revised. 
+		Thanks for using Revisely!"
+	}
+	]);
+	tour.start();
+	
 });	
 </script>
+
 {% endblock customscripts %}
 {% block content %}
 {% if user %}
@@ -24,7 +59,7 @@ $(document).ready(function() {
 		<div class="col-sm-8">
 			<a class="btn btn-large btn-success" href="/submit"><i class="icon-fixed-width icon-pencil"></i>Submit a paper</a>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-4" id="user">
 			{{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a>
 		</div>
 	</div>
