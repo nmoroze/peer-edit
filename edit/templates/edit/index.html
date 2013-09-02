@@ -1,7 +1,7 @@
 {% extends "edit/base.html" %}
 
 {% block customscripts %}
-<script src="{{ STATIC_URL }}js/bootstrap-tour.min.js"
+<script src="{{ STATIC_URL }}js/bootstrap-tour.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#dash").addClass("active");
@@ -10,31 +10,31 @@ $(document).ready(function() {
 	tour.addSteps([
 	{
 		element: ".navbar-brand",
-		position: "bottom",
+		placement: "bottom",
 		title: "Let's get started!",
-		content: "Welcome to Revisely -- peer editing, for the web! 
-		This tour will walk you through the site.
-		This is the navbar, where you can easily access your profile or user dashboard."
+		content: "Welcome to Revisely -- peer editing for the web! "+ 
+		"This tour will walk you through the site. "+
+		"This is the navbar, where you can easily access your profile or user dashboard."
 	},
 	{
 		element: ".submissions",
-		position: "top",
+		placement: "right",
 		title: "Revising papers",
-		content: "These are papers that you can help revise! 
-		Just highlight an area of text to provide feedback for the author."
+		content: "These are papers that you can help revise! "+
+		"Click to open one, and just highlight a small area of text to provide feedback for the author."
 	},
 	{
 		element: "#user",
-		position: "bottom",
+		placement: "bottom",
 		title: "Point system",
 		content: "Authors can reward good revisions with points, which you can use in turn to place a bounty on your own papers."
 	},
 	{
 	element: ".btn-large",
-		position: "bottom",
+		placement: "bottom",
 		title: "Submitting a paper",
-		content: "Here you can submit some work of your own to get it revised. 
-		Thanks for using Revisely!"
+		content: "Here you can submit some work of your own to get it revised. "+
+		"Thanks for using Revisely!"
 	}
 	]);
 	tour.start();
@@ -60,8 +60,8 @@ $(document).ready(function() {
 		<div class="col-sm-8">
 			<a class="btn btn-large btn-success" href="/submit"><i class="icon-fixed-width icon-pencil"></i>Submit a paper</a>
 		</div>
-		<div class="col-sm-4" id="user">
-			{{ user.username }}, {{ author.points }} pts <a href="/signout/">Sign out</a>
+		<div class="col-sm-4">
+			{{ user.username }}, <span id="user">{{ author.points }}</span> pts <a href="/signout/">Sign out</a>
 		</div>
 	</div>
 	<div class="row">
