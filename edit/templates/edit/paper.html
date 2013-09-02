@@ -3,29 +3,29 @@
 {% block customscripts %}
 <script src="/static/js/bootbox.min.js"></script>
 <!-- <script src="/static/js/ajaxvalidation.js"></script>-->
-
 <script type="text/javascript">
 $(document).ready(function() {
+
 	$.ajaxSetup({ 
-	 beforeSend: function(xhr, settings) {
-	     function getCookie(name) {
-	         var cookieValue = null;
-	         if (document.cookie && document.cookie != '') {
-	             var cookies = document.cookie.split(';');
-	             for (var i = 0; i < cookies.length; i++) {
-	                 var cookie = jQuery.trim(cookies[i]);
+		beforeSend: function(xhr, settings) {
+			function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie != '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = jQuery.trim(cookies[i]);
 	                 // Does this cookie string begin with the name we want?
-	             if (cookie.substring(0, name.length + 1) == (name + '=')) {
-	                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-	                 break;
+	                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                 	cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                 	break;
+	                 }
 	             }
 	         }
-	     }
-	     return cookieValue;
+	         return cookieValue;
 	     }
 	     if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
 	         // Only send the token to relative URLs i.e. locally.
-	        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+	         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 	     }
 	 } 
 	});
@@ -33,10 +33,9 @@ $(document).ready(function() {
 	$(".popover").remove();
 
 	$(".point-input").on("change", function() {
-		    var val = Math.abs(parseInt(this.value, 10) || 1);
-		    this.value = val > {{ paper.points }} ? {{ paper.points }} : val;
+		var val = Math.abs(parseInt(this.value, 10) || 1);
+		this.value = val > {{ paper.points }} ? {{ paper.points }} : val;
 	});
-
     {% for f in feedback_list %}
     	$("#{{ f.id }}").popover({
 			title: "{{ f.author.user.username }} says - ",
@@ -68,14 +67,14 @@ $(document).ready(function() {
 				if(result!=null && result!="") {
 					$.post("/feedback/save/", 
 						{content: result,
-						 author: {{ author.id }},
-						 paper: {{ paper.id }},
+							author: {{ author.id }},
+							paper: {{ paper.id }},
 						},
 						function(data) {
 							highlight(range, data);
 							$.post("/paper/save/", {paper:{{ paper.id }}, body:$("#paper-body").html()});
 							location.reload(true);
-					});
+						});
 				}
 			});
 		}
@@ -97,8 +96,8 @@ function givePoints($form) {
 	console.log($form);
 	console.log($(".point-input").val());
 	var val = Math.abs(parseInt($(".point-input").val(), 10) || 1);
-    $(".point-input").val(val > {{ paper.points }} ? {{ paper.points }} : val);
-    $form.submit();
+	$(".point-input").val(val > {{ paper.points }} ? {{ paper.points }} : val);
+	$form.submit();
 }
 
 function generatePopoverContent(content, ownFeedback, id) {
@@ -106,9 +105,9 @@ function generatePopoverContent(content, ownFeedback, id) {
 	var html = 
 	"<p>"+content+"</p>";
 	{% if ownPaper %}
-		var ownPaper = true;
+	var ownPaper = true;
 	{% else %}
-		var ownPaper = false;
+	var ownPaper = false;
 	{% endif %}
 
 	if(ownFeedback||ownPaper)
