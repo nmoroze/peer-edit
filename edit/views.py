@@ -135,8 +135,6 @@ def submit(request):
 
 @login_required
 def submitpaper(request):
-	print request.POST['question']
-	print request.POST['body']
 	author = Author.objects.all().get(user = request.user)
 	author.points -= int(request.POST['points'])
 	print author.points

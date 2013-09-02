@@ -2,7 +2,7 @@
 
 {% block customscripts %}
 <script src="/static/js/bootbox.min.js"></script>
-<!-- <script src="/static/js/ajaxvalidation.js"></script> -->
+<!-- <script src="/static/js/ajaxvalidation.js"></script>-->
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -36,29 +36,29 @@ $(document).ready(function() {
 		var val = Math.abs(parseInt(this.value, 10) || 1);
 		this.value = val > {{ paper.points }} ? {{ paper.points }} : val;
 	});
-
-	{% for f in feedback_list %}
-	$("#{{ f.id }}").popover({
-		title: "{{ f.author.user.username }} says - ",
-		content: generatePopoverContent("{{ f.content }}", '{{ f.author.user }}' == '{{ user }}', {{ f.id }}),
-		trigger: 'manual',
-		html:true
-	}).on("mouseenter", function () {
-		var _this = this;
-		$(this).popover("show");
-		$(this).siblings(".popover").on("mouseleave", function () {
-			$(_this).popover('hide');
-		});
-	}).on("mouseleave", function () {
-		var _this = this;
-		setTimeout(function () {
-			if (!$(".popover:hover").length) {
-				$(_this).popover("hide")
-			}
-		}, 100);
-	});
-	{% endfor %}
-	{% if not ownPaper %}
+    {% for f in feedback_list %}
+    	$("#{{ f.id }}").popover({
+			title: "{{ f.author.user.username }} says - ",
+			content: generatePopoverContent("{{ f.content }}", '{{ f.author.user }}' == '{{ user }}', {{ f.id }}),
+			trigger: 'manual',
+			placement: 'auto right',
+			html:true
+		}).on("mouseenter", function () {
+	        var _this = this;
+	        $(this).popover("show");
+	        $(this).siblings(".popover").on("mouseleave", function () {
+	            $(_this).popover('hide');
+	        });
+	    }).on("mouseleave", function () {
+	        var _this = this;
+	        setTimeout(function () {
+	            if (!$(".popover:hover").length) {
+	                $(_this).popover("hide")
+	            }
+	        }, 100);
+	    });
+    {% endfor %}
+    {% if not ownPaper %}
 	$("#paper-body").on("mouseup", function(e) {
 		var range = window.getSelection().getRangeAt(0);
 
@@ -72,7 +72,6 @@ $(document).ready(function() {
 						},
 						function(data) {
 							highlight(range, data);
-							$("#"+result)
 							$.post("/paper/save/", {paper:{{ paper.id }}, body:$("#paper-body").html()});
 							location.reload(true);
 						});
@@ -102,6 +101,7 @@ function givePoints($form) {
 }
 
 function generatePopoverContent(content, ownFeedback, id) {
+	console.log(content);
 	var html = 
 	"<p>"+content+"</p>";
 	{% if ownPaper %}

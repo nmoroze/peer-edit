@@ -27,6 +27,11 @@ input {
 	/*background-color: rgba(244, 144, 19, 0.6);*/
 	background-color: rgba(10, 10, 10, 0.5);
 }
+
+.popover.fade {
+	background-color: rgba(255, 255, 255, 1); 
+}
+
 .modal-body {
 	/*font-size: 24px;*/
 	padding: 5px 20px;
@@ -247,3 +252,4 @@ a:hover {
 		max-width: 900px;
 	}
 }
+
