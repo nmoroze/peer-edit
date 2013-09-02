@@ -1,6 +1,7 @@
 {% extends "edit/base.html" %}
 
 {% block customscripts %}
+<script src="{{ STATIC_URL }}js/bootstrap-tour.min.js"
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#dash").addClass("active");
@@ -23,7 +24,7 @@ $(document).ready(function() {
 		Just highlight an area of text to provide feedback for the author."
 	},
 	{
-	element: "#user",
+		element: "#user",
 		position: "bottom",
 		title: "Point system",
 		content: "Authors can reward good revisions with points, which you can use in turn to place a bounty on your own papers."
