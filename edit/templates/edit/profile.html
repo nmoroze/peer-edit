@@ -3,6 +3,33 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#profile").addClass("active");
+
+	var points = {{ author.points }};
+	if (points < 0) {
+		$("#points").append("awk")
+	}
+	else if (points <= 5) {
+		$("#points").append("Revisely Rookie");
+	}
+	else if (points <= 10) {
+		$("#points").append("Intern");
+	}
+	else if (points <= 20) {
+		$("#points").append("Editor");
+	}
+	else if (points <= 30) {
+		$("#points").append("Editor in Chief");
+	}
+	else if (points <= 40) {
+		$("#points").append("Frequent contributor");
+	}
+	else if (points <= 100) {
+		$("#points").append("Revisely Sensei");
+	}
+	else {
+		$("#points").append("Revisely Addict");
+	}
+
 });	
 </script>
 {% endblock customscripts %}
@@ -10,7 +37,7 @@ $(document).ready(function() {
 <h1>{{ username }}'s Profile</h1>
 <div class="col-md-4">
 	<h2>Points</h2>
-	<h4>{{ author.points }}</h4>
+	<h4 id="points">{{ author.points }} -- </h4>
 </div>
 
 <div class="col-md-8">
