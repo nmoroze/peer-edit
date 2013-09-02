@@ -45,6 +45,9 @@ INSTALLED_APPS = (
 
     # Local apps, referenced via appname
     'edit',
+
+    # Amazon S3
+    'storages',
 )
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
