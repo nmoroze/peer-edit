@@ -4,7 +4,7 @@
 $(document).ready(function() {
 	$("#profile").addClass("active");
 
-	var points = {{ author.points }};
+	var points = {{ author.total_points }};
 	if (points < 0) {
 		$("#points").append("awk")
 	}
@@ -37,7 +37,7 @@ $(document).ready(function() {
 <h1>{{ username }}'s Profile</h1>
 <div class="col-md-4">
 	<h2>Points</h2>
-	<h4 id="points">{{ author.points }} -- </h4>
+	<h4 id="points">{{ author.total_points }} -- </h4>
 </div>
 
 <div class="col-md-8">

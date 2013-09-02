@@ -109,6 +109,7 @@ def feedback(request, feedback_id):
 	reward = int(request.POST['points'])
 	paper.points -= reward
 	fbAuthor.points += reward
+	fbAuthor.total_points += reward
 	fbAuthor.save()
 	feedback.chosen = True
 	paper.save()
