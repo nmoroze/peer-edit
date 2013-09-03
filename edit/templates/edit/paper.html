@@ -138,6 +138,8 @@ function del(id) {
 
 {% block content %}
 <h1> {{ paper.question }} </h1>
+<h4><em> {{ paper.description }} </em></h4>
+<br>
 <div id="paper-body"> {{ paper.body|safe }} </div>
 {% endblock %}
 
