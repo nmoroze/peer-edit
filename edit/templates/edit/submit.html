@@ -24,8 +24,10 @@
 {% csrf_token %}
 Question <br>
 <input style="width:100%" type="text" name="question" required="required"><br>
-Description <br>
-<textarea style="width:100%" rows="5" name="description"><br>
+Description <em style="font-size:10px">Provide any ellaboration on your question. Not required.</em><br>
+<textarea style="width:100%" rows="5" name="description">
+</textarea>
+<br>
 Content <br>
 <textarea id="bodyForm" style="width:100%" rows="50"  name="body" required="required">
 </textarea>
