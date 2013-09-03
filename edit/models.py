@@ -12,6 +12,7 @@ class Author(models.Model):
 class Paper(models.Model):
 	#title = models.CharField(max_length=20)
 	question = models.CharField(max_length=300)
+	description = models.CharField(max_length=1000)
 	body = models.TextField()
 	pub_date = models.DateTimeField('pub_date')
 	author = models.ForeignKey(Author)

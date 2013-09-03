@@ -8,7 +8,6 @@
 			if(!modified) { 
 				modified = true;
 				e.preventDefault();
-				console.log('hi');
 				$("#bodyForm").val($("#bodyForm").val().replace("<", "< "));
 				$("#bodyForm").val($("#bodyForm").val().replace("</", "< "));
 
@@ -25,6 +24,8 @@
 {% csrf_token %}
 Question <br>
 <input style="width:100%" type="text" name="question" required="required"><br>
+Description <br>
+<textarea style="width:100%" rows="5" name="description"><br>
 Content <br>
 <textarea id="bodyForm" style="width:100%" rows="50"  name="body" required="required">
 </textarea>

@@ -141,7 +141,7 @@ def submitpaper(request):
 	print author.points
 	sys.stdout.flush()
 	author.save()
-	paper = Paper(question = request.POST['question'], points = request.POST['points'], body = request.POST['body'], author=Author.objects.all().get(user=request.user), pub_date = timezone.now())
+	paper = Paper(question = request.POST['question'], description = request.POST['description'], points = request.POST['points'], body = request.POST['body'], author=Author.objects.all().get(user=request.user), pub_date = timezone.now())
 	paper.save()
 	print paper.id
 	return HttpResponseRedirect("/edit/"+str(paper.id))
